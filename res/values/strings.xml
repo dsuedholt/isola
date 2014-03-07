@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">Isola</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_info">Info</string>
+    <string name="neues_spiel">Neues Spiel</string>
+    <string name="hilfe">Hilfe</string>
 
 </resources>
