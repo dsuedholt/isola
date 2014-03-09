@@ -18,15 +18,15 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:layout_centerHorizontal="true"
-        android:text="@string/hilfe" />
+        android:text="@string/help" />
 
     <Button
-        android:id="@+id/button_neues_spiel"
+        android:id="@+id/button_new_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_hilfe"
         android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
-        android:text="@string/neues_spiel" />
+        android:text="@string/new_game" />
 
 </RelativeLayout>
