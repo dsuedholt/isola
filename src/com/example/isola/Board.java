@@ -114,15 +114,7 @@ public class Board {
 		}
 		return board[x][y];
 	}
-	
-	public void setTile(Tile tile, int x, int y) {
-		if (!validIndices(x, y)) {
-			String error = String.format("Indices x=%d, y=%d out of range", x, y);
-			throw new IllegalArgumentException(error);
-		}
-		board[x][y] = tile;
-	}
-	
+
 	private boolean validIndices(int x, int y) {
 		return 0 < x && x < WIDTH && 0 < y && y < HEIGHT;
 	}

@@ -44,6 +44,7 @@ public class GameActivity extends Activity {
 	private class GameListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
+			//TODO: Do something with the clicked square
 			ic.notify();
 		}
 	}
