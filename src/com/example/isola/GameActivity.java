@@ -37,7 +37,7 @@ public class GameActivity extends Activity {
 		case HARD: break;
 		}
 		
-		ic.run();
+		ic.start();
 		
 	}
 	
@@ -45,6 +45,7 @@ public class GameActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			//TODO: Do something with the clicked square
+			
 			ic.notify();
 		}
 	}

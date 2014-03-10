@@ -1,6 +1,6 @@
 package com.example.isola;
 
-public class IsolaController implements Runnable {
+public class IsolaController extends Thread {
 	
 	private boolean humanP1, humanP2;
 	private Strategy comp1, comp2;

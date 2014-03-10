@@ -116,7 +116,7 @@ public class Board {
 	}
 
 	private boolean validIndices(int x, int y) {
-		return 0 < x && x < WIDTH && 0 < y && y < HEIGHT;
+		return 0 <= x && x < WIDTH && 0 <= y && y < HEIGHT;
 	}
 	
 	public static Board getBoard() {
