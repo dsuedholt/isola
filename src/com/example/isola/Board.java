@@ -69,18 +69,23 @@ public class Board extends Observable {
 			String error = String.format("Player cannot move to x=%d, y=%d", x, y);
 			throw new IllegalArgumentException(error);
 		}
+		int oldx, oldy;
 		if (player1) {
+			oldx = x1;
+			oldy = y1;
 			board[x1][y1] = Tile.FREE;
 			board[x][y] = Tile.PLAYER1;
 			x1 = x;
 			y1 = y;
 		} else {
+			oldx = x2;
+			oldy = y2;
 			board[x2][y2] = Tile.FREE;
 			board[x][y] = Tile.PLAYER2;
 			x2 = x;
 			y2 = y;
 		}
-		notifyObservers(GameEvent.MOVE);
+		notifyObservers(new MoveEvent(player1, oldx, oldy, x, y));
 	}
 	
 	public boolean isOver() {
@@ -116,9 +121,9 @@ public class Board extends Observable {
 			throw new IllegalArgumentException(error);
 		}
 		board[x][y] = Tile.DESTROYED;
-		notifyObservers(GameEvent.DESTROY);
+		notifyObservers(new DestroyEvent(x, y));
 		if (isOver()) {
-			notifyObservers(GameEvent.GAMEOVER);
+			notifyObservers(new GameOverEvent(hasLost(false)));
 		}
 	}
 	

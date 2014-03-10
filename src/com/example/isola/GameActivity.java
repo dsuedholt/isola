@@ -3,22 +3,36 @@ package com.example.isola;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.example.isola.GameEvent.EventType;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
-public class GameActivity extends Activity implements Observer {
+public class GameActivity extends Activity implements Observer {s
 	
+	protected Board board;
+	protected Game game;
+	protected BoardView bv;
+	protected Player p1, p2;
 	
 	protected void onCreate(Bundle savedInstanceState) {
+		board = new Board();
+		Intent startIntent = getIntent();
+		p1 = (Player) startIntent.getSerializableExtra("player1");
+		p2 = (Player) startIntent.getSerializableExtra("player2");
+		bv = (BoardView) findViewById(R.id.isolaboard);
+		board.addObserver(this);
+		board.addObserver(bv);
 		
+		game = new Game(board, p1, p2);
 	}
 
 	@Override
 	public void update(Observable board, Object data) {
-		GameEvent type = (GameEvent) data;
-		
+		GameEvent ev = (GameEvent) data;
+		if (ev.getType() == EventType.GAMEOVER) {
+			// TODO: End game / rematch
+		}
 	}
-	
-	
-	
 }
