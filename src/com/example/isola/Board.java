@@ -1,26 +1,26 @@
 package com.example.isola;
 
-public class Board {
+import java.util.Observable;
+
+public class Board extends Observable {
 	
 	public static final int WIDTH = 6;
 	public static final int HEIGHT = 8; 
 	
-	private static Board instance;
-	
 	//player's coordinates
 	private int x1, y1, x2, y2;
 	
-	static {
-		instance = new Board();
-	}
-	
 	private Tile[][] board;
 	
-	private Board() {
+	public Board() {
 		board = new Tile[WIDTH][HEIGHT];
 		init();
 	}
 	
+	/**
+	 * Initializes the board to the starting position, with every tile undestroyed
+	 * and the players on their starting squares
+	 */
 	public void init() {
 		for (int i = 0; i < WIDTH; i++) {
 			for (int j = 0; j < HEIGHT; j++) {
@@ -35,8 +35,17 @@ public class Board {
 		board[x2][y2] = Tile.PLAYER2;
 	}
 	
-	
-	public boolean isValidMove(boolean player1, int x, int y) {
+	/**
+	 * Returns whether or not a given player is allowed to move to the given
+	 * coordinates.
+	 * 
+	 * @param player1 Indicates if player 1 (true) or player 2 (false) is to move
+	 * @param x       The x-coordinate of the destination field
+	 * @param y       The y-coordinate of the destination field
+	 * @throws        IllegalArgumentException if x, y are out of bounds.
+	 * @return		  A boolean indicating if the planned move is valid
+	 */
+	public boolean canMove(boolean player1, int x, int y) {
 		if (!validIndices(x, y)) {
 			String error = String.format("Indices x=%d, y=%d out of range", x, y);
 			throw new IllegalArgumentException(error);
@@ -44,6 +53,8 @@ public class Board {
 		if (board[x][y] != Tile.FREE)
 			return false;
 		if (player1) {
+			// check for distances bigger than 1 or equality; the player HAS to move to
+			// a different square
 			if (Math.abs(x1 - x) > 1 || Math.abs(y1 - y) > 1 || (x1 == x && y1 == y))
 				return false;
 		} else {
@@ -54,7 +65,7 @@ public class Board {
 	}
 	
 	public void move(boolean player1, int x, int y) {
-		if (!isValidMove(player1, x, y)) {
+		if (!canMove(player1, x, y)) {
 			String error = String.format("Player cannot move to x=%d, y=%d", x, y);
 			throw new IllegalArgumentException(error);
 		}
@@ -69,7 +80,7 @@ public class Board {
 			x2 = x;
 			y2 = y;
 		}
-		
+		notifyObservers(GameEvent.MOVE);
 	}
 	
 	public boolean isOver() {
@@ -105,6 +116,10 @@ public class Board {
 			throw new IllegalArgumentException(error);
 		}
 		board[x][y] = Tile.DESTROYED;
+		notifyObservers(GameEvent.DESTROY);
+		if (isOver()) {
+			notifyObservers(GameEvent.GAMEOVER);
+		}
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -114,13 +129,9 @@ public class Board {
 		}
 		return board[x][y];
 	}
-
+	
 	private boolean validIndices(int x, int y) {
 		return 0 <= x && x < WIDTH && 0 <= y && y < HEIGHT;
-	}
-	
-	public static Board getBoard() {
-		return instance;
 	}
 	
 }
