@@ -15,10 +15,19 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/button_close_help"
+        android:layout_below="@+id/text_view_how_to_play_headline"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:text="@string/how_to_play" />
-
+    
+	<TextView
+        android:id="@+id/text_view_how_to_play_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/how_to_play_headline"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
     <Button
         android:id="@+id/button_close_help"
         android:layout_width="wrap_content"
@@ -26,5 +35,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/close" />
+
 
 </RelativeLayout>
