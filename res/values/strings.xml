@@ -13,5 +13,11 @@
     <string name="title_activity_help">HelpActivity</string>
     <string name="close">Schließen</string>
     <string name="how_to_play_headline">Spielregeln:</string>
+    <string name="human">Mensch</string>
+    <string name="computer_easy">Computer (einfach)</string>
+    <string name="computer_medium">Computer (mittel)</string>
+    <string name="computer_hard">Computer (schwer)</string>
+    <string name="choose_players">Spieler auswählen:</string>
+    <string name="begin_game">Spiel beginnen</string>
 
 </resources>

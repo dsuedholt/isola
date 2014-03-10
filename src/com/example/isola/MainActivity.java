@@ -19,11 +19,11 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Button neuesSpiel = (Button) findViewById(R.id.button_new_game);
+		Button newGame = (Button) findViewById(R.id.button_new_game);
 		Button help = (Button) findViewById(R.id.button_help);
 		
 		
-		neuesSpiel.setOnClickListener(new OnClickListener() {
+		newGame.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent_choose_opponent = new Intent(usedInOnClickListener, ChooseOpponentActivity.class);
 				startActivity(intent_choose_opponent);
