@@ -5,9 +5,9 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class IsolaBoard extends View {
+public class BoardView extends View {
 
-	public IsolaBoard(Context context, AttributeSet attrs) {
+	public BoardView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 	

@@ -13,7 +13,7 @@ public class GameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-		IsolaBoard board = (IsolaBoard) findViewById(R.id.isolaboard);
+		BoardView board = (BoardView) findViewById(R.id.isolaboard);
 		ic = new IsolaController();
 		board.setOnClickListener(new GameListener());
 		
