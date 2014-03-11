@@ -17,6 +17,7 @@ public class GameActivity extends Activity implements Observer {
 	protected Player p1, p2;
 	
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		board = new Board();
 		Intent startIntent = getIntent();
 		p1 = (Player) startIntent.getSerializableExtra("player1");
