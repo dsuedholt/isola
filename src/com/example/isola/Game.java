@@ -96,8 +96,8 @@ public class Game {
 				gameState = GameState.P1TOMOVE;
 				return true;
 			}
-			else if (board.canMove(true, x, y)) {
-				board.move(true, x, y);
+			else if (board.canMove(false, x, y)) {
+				board.move(false, x, y);
 				gameState = GameState.P2TODESTROY;
 				return true;
 			}
