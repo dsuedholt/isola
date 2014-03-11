@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
 		
 		Button newGame = (Button) findViewById(R.id.button_new_game);
 		Button help = (Button) findViewById(R.id.button_help);
-		Button newBtGame = (Button) findViewById(R.id.Button_new_btgame);
+		Button newBtGame = (Button) findViewById(R.id.button_new_btgame);
 		
 		
 		newGame.setOnClickListener(new OnClickListener() {
