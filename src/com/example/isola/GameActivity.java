@@ -26,6 +26,8 @@ public class GameActivity extends Activity implements Observer {
 		board.addObserver(this);
 		board.addObserver(bv);
 		
+		setContentView(bv);
+		
 		game = new Game(board, p1, p2);
 	}
 

@@ -85,6 +85,7 @@ public class Board extends Observable {
 			x2 = x;
 			y2 = y;
 		}
+		setChanged();
 		notifyObservers(new MoveEvent(player1, oldx, oldy, x, y));
 	}
 	
@@ -121,8 +122,10 @@ public class Board extends Observable {
 			throw new IllegalArgumentException(error);
 		}
 		board[x][y] = Tile.DESTROYED;
+		setChanged();
 		notifyObservers(new DestroyEvent(x, y));
 		if (isOver()) {
+			setChanged();
 			notifyObservers(new GameOverEvent(hasLost(false)));
 		}
 	}
