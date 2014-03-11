@@ -59,9 +59,9 @@ public class Game {
 	
 	private void playComps() {
 		while (!board.isOver()) {
-			comp1.play(board);
+			comp1.play(board, isP1Turn());
 			if (!board.isOver())
-				comp2.play(board);
+				comp2.play(board, isP1Turn());
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class Game {
 		switch (gameState) {
 		case P1TOMOVE:
 			if (Player.isComputer(p1)) {
-				comp1.play(board);
+				comp1.play(board, isP1Turn());
 				gameState = GameState.P2TOMOVE;
 				return true;
 			}		
@@ -92,7 +92,7 @@ public class Game {
 				return false;
 		case P2TOMOVE:
 			if (Player.isComputer(p2)) {
-				comp2.play(board);
+				comp2.play(board, isP1Turn());
 				gameState = GameState.P1TOMOVE;
 				return true;
 			}
