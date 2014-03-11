@@ -22,7 +22,7 @@ public class GameActivity extends Activity implements Observer {
 		Intent startIntent = getIntent();
 		p1 = (Player) startIntent.getSerializableExtra("player1");
 		p2 = (Player) startIntent.getSerializableExtra("player2");
-		bv = (BoardView) findViewById(R.id.isolaboard);
+		bv = new BoardView(this, board);
 		board.addObserver(this);
 		board.addObserver(bv);
 		

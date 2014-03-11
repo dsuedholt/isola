@@ -14,7 +14,12 @@ public class BoardView extends View implements Observer {
 	
 	public BoardView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		board = new Board();
+	}
+	
+	public BoardView(Context context, Board board) {
+		super(context);
+		this.board = board;
+		invalidate();
 	}
 	
 	@Override
@@ -24,7 +29,6 @@ public class BoardView extends View implements Observer {
 
 	@Override
 	public void update(Observable board, Object o) {
-		board = (Board) board;
 		invalidate();
 	}
 }
