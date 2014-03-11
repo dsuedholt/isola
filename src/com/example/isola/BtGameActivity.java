@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
@@ -29,7 +28,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
+/**
+ * @author Felix Kibellus
+ * @version Pre-Alpha
+ * */
 public class BtGameActivity extends GameActivity implements OnItemClickListener {
 
 	ArrayAdapter<String> listAdapter;
@@ -49,6 +51,11 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 	String tag = "debugging";
 	ConnectedThread connectedThread;
 	
+	//game attributes
+	private int playerNumber;
+	private static final int player1 = 1;
+	private static final int player2 = 1;
+	
 	Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -62,6 +69,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				connectedThread.write(s.getBytes());
 				connectedThread.start();
 				Log.i(tag, "connected");
+				playerNumber=player2;
 				break;
 			case MESSAGE_READ:
 				byte[] readBuf = (byte[])msg.obj;
@@ -165,7 +173,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			
 			public void onClick(View v) {
 				startOpen();
-				setContentView(R.layout.activity_bt_create);
+				//setContentView(R.layout.activity_bt_create);
 			}
 		});
 		msg = (EditText) findViewById(R.id.editTextMsg);
@@ -390,6 +398,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		    private void manageConnectedSocket(BluetoothSocket socket) {
 				connectedThread = new ConnectedThread(socket);
 				connectedThread.start();
+				playerNumber=player1;
 			}
 
 			/** Will cancel the listening socket, and cause the thread to finish */
