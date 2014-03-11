@@ -1,5 +1,7 @@
 package com.example.isola;
 
+import java.util.Random;
+
 public class SimpleStrategy implements Strategy {
 	
 	//player coordinates
@@ -28,6 +30,9 @@ public class SimpleStrategy implements Strategy {
 		 *     1 2 3
 		 *     4 P 5
 		 *     6 7 8
+		 * 
+		 * This method is guaranteed to be called with the player
+		 * having at least one square left to go
 		 */
 		
 		for (int i = -1; i <= 1; i++) {
@@ -59,6 +64,16 @@ public class SimpleStrategy implements Strategy {
 				}
 			}
 		}
+		
+		// if we weren't able to destroy a field right next to the player,
+		// destroy a random one.
+		Random rand = new Random();
+		int i, j;
+		do {
+			i = rand.nextInt(Board.WIDTH);
+			j = rand.nextInt(Board.HEIGHT);
+		} while (!board.canDestroy(i, j));
+		board.destroy(i, j);
 	}
 	
 	private void findPosition(boolean player1) {
