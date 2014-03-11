@@ -72,35 +72,47 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				connectedThread.write(s.getBytes());
 				connectedThread.start();
 				Log.i(tag, "connected");
+				//not tested
 				playerNumber=player2;
 				break;
 			case MESSAGE_READ:
 				byte[] readBuf = (byte[])msg.obj;
 				String string = new String(readBuf);
 				Toast.makeText(getApplicationContext(), string, 0).show();
+				//game.doTurn(x, y);
 				break;
 			}
 		}
 	};
 	
+	/*
+	//not tested
 	@Override
 	public void update(Observable board, Object data) {
+		//return if the change come from device
 		GameEvent ev = (GameEvent) data;
+		Log.i(tag, "update event");
 		if(ev instanceof DestroyEvent)
 		{
 			DestroyEvent de = (DestroyEvent) ev;
-			//TODO: run some code
+			byte x = (byte) de.getX();
+			byte y = (byte) de.getY();
+			byte[] bytes = {x,y};
+			connectedThread.write(bytes);
 		}
 		else if(ev instanceof MoveEvent)
 		{
 			MoveEvent me = (MoveEvent)ev;
-			//TODO: run some code
+			byte x = (byte) me.getNewX();
+			byte y = (byte) me.getNewY();
+			byte[] bytes = {x,y};
 		}
 		else
 		{
-			//TODO: run some code
+			//TODO: run some game ends code
 		}
 	}
+	*/
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
