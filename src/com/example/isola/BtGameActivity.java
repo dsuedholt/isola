@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Set;
 import java.util.UUID;
+
+import com.example.isola.GameEvent.EventType;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -79,6 +82,25 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			}
 		}
 	};
+	
+	@Override
+	public void update(Observable board, Object data) {
+		GameEvent ev = (GameEvent) data;
+		if(ev instanceof DestroyEvent)
+		{
+			DestroyEvent de = (DestroyEvent) ev;
+			//TODO: run some code
+		}
+		else if(ev instanceof MoveEvent)
+		{
+			MoveEvent me = (MoveEvent)ev;
+			//TODO: run some code
+		}
+		else
+		{
+			//TODO: run some code
+		}
+	}
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
