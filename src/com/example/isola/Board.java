@@ -47,8 +47,7 @@ public class Board extends Observable {
 	 */
 	public boolean canMove(boolean player1, int x, int y) {
 		if (!validIndices(x, y)) {
-			String error = String.format("Indices x=%d, y=%d out of range", x, y);
-			throw new IllegalArgumentException(error);
+			return false;
 		}
 		if (board[x][y] != Tile.FREE)
 			return false;
@@ -110,8 +109,7 @@ public class Board extends Observable {
 	
 	public boolean canDestroy(int x, int y) {
 		if (!validIndices(x, y)) {
-			String error = String.format("Indices x=%d, y=%d out of range", x, y);
-			throw new IllegalArgumentException(error);
+			return false;
 		}
 		return board[x][y] == Tile.FREE;
 	}
