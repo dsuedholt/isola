@@ -2,28 +2,20 @@ package com.example.isola;
 
 import java.util.Random;
 
-public class SimpleStrategy implements Strategy {
+public class SimpleStrategy extends Strategy {
 	
 	//player coordinates
 	private int x, y;
-	private Board board;
 	
-	@Override
-	public void play(Board board, boolean player1) {
-		this.board = board;
-		findPosition(player1);
-		try {
-			Thread.sleep(500);
-			doMove(player1);
-			Thread.sleep(500);
-			doDestroy(player1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
+	public SimpleStrategy(Board board, boolean player1) {
+		super(board, player1);
 	}
 	
-	private void doMove(boolean player1) {
+	@Override
+	protected void doMove() {
+		
+		findPosition(player1);
+		
 		/*
 		 * Move to the first availabe tile in the following
 		 * sequence, where P is our position:
@@ -34,7 +26,6 @@ public class SimpleStrategy implements Strategy {
 		 * This method is guaranteed to be called with the player
 		 * having at least one square left to go
 		 */
-		
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				if (board.canMove(player1, x + i, y + j)) {
@@ -45,7 +36,11 @@ public class SimpleStrategy implements Strategy {
 		}
 	}
 	
-	private void doDestroy(boolean player1) {
+	@Override
+	protected void doDestroy() {
+		// let x, y be the enemy's coordinates
+		findPosition(!player1);
+
 		/*
 		 * Destroy the first availabe tile in the following
 		 * sequence, where P is the enemy position:
@@ -53,9 +48,6 @@ public class SimpleStrategy implements Strategy {
 		 *     4 P 5
 		 *     6 7 8
 		 */
-		
-		// let x, y be the enemy's coordinates
-		findPosition(!player1);
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				if (board.canDestroy(x + i, y + j)) {

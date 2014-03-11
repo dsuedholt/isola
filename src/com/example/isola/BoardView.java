@@ -72,6 +72,6 @@ public class BoardView extends View implements Observer {
 
 	@Override
 	public void update(Observable board, Object o) {
-		invalidate();
+		postInvalidate();
 	}
 }

@@ -1,6 +1,6 @@
 package com.example.isola;
 
-public class Game {
+public class Game implements Runnable {
 	
 	private Board board;
 	private Player p1, p2;
@@ -24,98 +24,53 @@ public class Game {
 		// initialize computer players where applicable
 		switch (p1) {
 		case EASY:
-			comp1 = new SimpleStrategy(); break;
+			comp1 = new SimpleStrategy(board, true); break;
 		case MEDIUM:
-			comp1 = new MinimaxStrategy(2); break;
+			comp1 = new MinimaxStrategy(board, true, 2); break;
 		case HARD:
-			comp1 = new MinimaxStrategy(4); break;
+			comp1 = new MinimaxStrategy(board, true, 4); break;
 		default: comp1 = null;
 		}
 		
 		switch (p2) {
 		case EASY:
-			comp2 = new SimpleStrategy(); break;
+			comp2 = new SimpleStrategy(board, false); break;
 		case MEDIUM:
-			comp2 = new MinimaxStrategy(2); break;
+			comp2 = new MinimaxStrategy(board, false, 2); break;
 		case HARD:
-			comp2 = new MinimaxStrategy(4); break;
+			comp2 = new MinimaxStrategy(board, false, 4); break;
 		default: comp2 = null;
 		}
 		
 		gameState = GameState.P1TOMOVE;
-		
-		if (Player.isComputer(p1) && Player.isComputer(p2))
-			playComps();
-		
-		if (Player.isComputer(p1))
-			doTurn();
 	}
 	
-	
-	// helper method to let the computer move
-	private void doTurn() {
-		doTurn(-1, -1);
-	}
-	
-	private void playComps() {
-		while (!board.isOver()) {
-			comp1.play(board, isP1Turn());
-			if (!board.isOver())
-				comp2.play(board, isP1Turn());
-		}
-	}
-	
-	public boolean doTurn(int x, int y) {
+	public void doTurn(int x, int y) {
 		switch (gameState) {
 		case P1TOMOVE:
-			if (Player.isComputer(p1)) {
-				comp1.play(board, isP1Turn());
-				gameState = GameState.P2TOMOVE;
-				return true;
-			}		
-			else if (board.canMove(true, x, y)) {
+			if (board.canMove(true, x, y)) {
 				board.move(true, x, y);
 				gameState = GameState.P1TODESTROY;
-				return true;
 			}
-			else
-				return false;
+			break;
+		case P2TOMOVE:
+			if (board.canMove(false, x, y)) {
+				board.move(false, x, y);
+				gameState = GameState.P2TODESTROY;
+			}
+			break;
 		case P1TODESTROY:
 			if (board.canDestroy(x, y)) {
 				board.destroy(x, y);
 				gameState = GameState.P2TOMOVE;
-				if (Player.isComputer(p2))
-					doTurn();
-				return true;
 			}
-			else
-				return false;
-		case P2TOMOVE:
-			if (Player.isComputer(p2)) {
-				comp2.play(board, isP1Turn());
-				gameState = GameState.P1TOMOVE;
-				return true;
-			}
-			else if (board.canMove(false, x, y)) {
-				board.move(false, x, y);
-				gameState = GameState.P2TODESTROY;
-				return true;
-			}
-			else
-				return false;
+			break;
 		case P2TODESTROY:
 			if (board.canDestroy(x, y)) {
 				board.destroy(x, y);
 				gameState = GameState.P1TOMOVE;
-				if (Player.isComputer(p1))
-					doTurn();
-				return true;
 			}
-			else
-				return false;
-			
-		// to keep compiler from complaining
-		default: return false;
+			break;
 		}
 	}
 	
@@ -130,9 +85,28 @@ public class Game {
 		return gameState == GameState.P1TOMOVE || gameState == GameState.P1TODESTROY; 
 	}
 	
-	public void reset() {
+	public void init() {
 		board.init();
 		gameState = GameState.P1TOMOVE;
+	}
+
+
+	@Override
+	public void run() {
+		init();
+		
+		while (true) {
+			if (gameState == GameState.P1TOMOVE && Player.isComputer(p1)) {
+				comp1.play();
+				gameState = GameState.P2TOMOVE;
+			}
+			if (board.isOver()) break;
+			if (gameState == GameState.P2TOMOVE && Player.isComputer(p2)) {
+				comp2.play();
+				gameState = GameState.P1TOMOVE;
+			}
+			if (board.isOver()) break;
+		}
 	}
 	
 }
