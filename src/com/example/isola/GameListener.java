@@ -16,7 +16,7 @@ public class GameListener implements View.OnTouchListener {
 	public boolean onTouch(View v, MotionEvent ev) {
 		if ((game.isP1Turn() && game.isHuman(true)) ||
 			(!game.isP1Turn() && game.isHuman(false))) {
-			BoardViewTest bv = (BoardViewTest) v;
+			BoardView bv = (BoardView) v;
 			Point coords = bv.getTileCoords((int) ev.getX(), (int) ev.getY());
 			game.doTurn(coords.x, coords.y);
 			return true;

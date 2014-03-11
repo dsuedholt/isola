@@ -29,6 +29,7 @@ public class GameActivity extends Activity implements Observer {
 		setContentView(bv);
 		
 		game = new Game(board, p1, p2);
+		bv.setOnTouchListener(new GameListener(game));
 	}
 
 	@Override
