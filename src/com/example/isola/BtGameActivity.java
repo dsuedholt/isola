@@ -30,7 +30,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class BtGameActivity extends Activity implements OnItemClickListener {
+public class BtGameActivity extends GameActivity implements OnItemClickListener {
 
 	ArrayAdapter<String> listAdapter;
 	ListView listView;
