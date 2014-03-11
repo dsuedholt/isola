@@ -14,9 +14,9 @@ public class SimpleStrategy implements Strategy {
 		findPosition(player1);
 		try {
 			Thread.sleep(500);
-			doDestroy(player1);
-			Thread.sleep(500);
 			doMove(player1);
+			Thread.sleep(500);
+			doDestroy(player1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
