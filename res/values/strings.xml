@@ -9,7 +9,7 @@
     <string name="player1">Spieler 1:</string>
     <string name="player2">Spieler 2:</string>
     <string name="title_activity_choose_opponent">ChooseOpponentActivity</string>
-    <string name="how_to_play">\nIsola ist ein Brettspiel für 2 Spieler. Der Spieler, der an der Reihe ist, muss zuerst seine Spielfigur auf ein benachbartes Feld (auch diagonal möglich) bewegen und dann ein beliebiges Feld zerstören, auf dem sich keine der beiden Spielfiguren befindet.\n\nEs verliert der Spieler, der mit seiner Spielfigur keinen gültigen Zug mehr ausführen kann, weil alle diese unmittelbar umgebenden Felder zerstört worden sind.\n\nViel Spaß!</string>
+    <string name="how_to_play">\nIsola ist ein Brettspiel für 2 Spieler. Der Spieler, der an der Reihe ist, muss zuerst seine Spielfigur auf ein benachbartes Feld (auch diagonal möglich) bewegen und dann ein beliebiges Feld zerstören, auf dem sich keine der beiden Spielfiguren befindet.\n\nEs verliert der Spieler, der mit seiner Spielfigur keinen gültigen Zug mehr ausführen kann, weil alle diese unmittelbar umgebenden Felder zerstört worden sind, oder sich darauf die Spielfigur des Gegenspielers befindet.\n\nViel Spaß!</string>
     <string name="title_activity_help">HelpActivity</string>
     <string name="close">Schließen</string>
     <string name="how_to_play_headline">Spielregeln:</string>
@@ -19,5 +19,6 @@
     <string name="computer_hard">Computer (schwer)</string>
     <string name="choose_players">Spieler auswählen:</string>
     <string name="begin_game">Spiel beginnen</string>
+    <string name="title_activity_game">GameActivity</string>
 
 </resources>

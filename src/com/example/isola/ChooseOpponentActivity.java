@@ -33,6 +33,10 @@ public class ChooseOpponentActivity extends Activity {
 			public void onClick(View v) {
 				Player chosen_player1 = (Player) choose_player1.getSelectedItem();
 				Player chosen_player2 = (Player) choose_player2.getSelectedItem();
+				Intent start_game_activity = new Intent(mContext, GameActivity.class);
+				start_game_activity.putExtra("player1", chosen_player1);
+				start_game_activity.putExtra("player2", chosen_player2);
+				startActivity(start_game_activity);
 			}
 		});
 	}
