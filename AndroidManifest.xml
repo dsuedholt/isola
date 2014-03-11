@@ -3,6 +3,9 @@
     package="com.example.isola"
     android:versionCode="1"
     android:versionName="1.0" >
+    
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -30,6 +33,10 @@
         <activity
             android:name="com.example.isola.HelpActivity"
             android:label="@string/title_activity_help" >
+        </activity>
+        <activity
+            android:name="com.example.isola.BtGameActivity"
+            android:label="@string/title_activity_btgame" >
         </activity>
     </application>
 

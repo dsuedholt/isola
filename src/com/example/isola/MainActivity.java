@@ -39,8 +39,8 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				Intent intent_btGame = new Intent(usedInOnClickListener, BtGameActivity.class);
+				startActivity(intent_btGame);
 			}
 		});
 	}
