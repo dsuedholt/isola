@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
 		
 		Button newGame = (Button) findViewById(R.id.button_new_game);
 		Button help = (Button) findViewById(R.id.button_help);
+		Button newBtGame = (Button) findViewById(R.id.Button_new_btgame);
 		
 		
 		newGame.setOnClickListener(new OnClickListener() {
@@ -33,6 +34,15 @@ public class MainActivity extends Activity {
 				startActivity(intent_help);
 			}
 		}); //end help.setOnClickListener
+		
+		newBtGame.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent_btGame = new Intent(usedInOnClickListener, BtGameActivity.class);
+				startActivity(intent_btGame);
+			}
+		});
 	}
 
 	@Override
