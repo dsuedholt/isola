@@ -2,7 +2,6 @@ package com.example.isola;
 
 public class DestroyEvent extends GameEvent {
 	
-	private boolean player1;
 	private int x, y;
 	
 	public DestroyEvent(int x, int y) {

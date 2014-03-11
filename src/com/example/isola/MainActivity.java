@@ -1,15 +1,12 @@
 package com.example.isola;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.LayoutInflater;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.PopupWindow;
 
 public class MainActivity extends Activity {
 	

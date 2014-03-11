@@ -15,4 +15,8 @@ public enum Player {
 	public String toString(){
         return ChooseOpponentActivity.getContext().getString(id);
     }
+	
+	public static boolean isComputer(Player p) {
+		return p == EASY || p == MEDIUM || p == HARD;
+	}
 }
