@@ -9,7 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class GameActivity extends Activity implements Observer {s
+public class GameActivity extends Activity implements Observer {
 	
 	protected Board board;
 	protected Game game;

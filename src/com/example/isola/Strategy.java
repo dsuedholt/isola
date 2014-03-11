@@ -1,5 +1,5 @@
 package com.example.isola;
 
 public interface Strategy {
-	public void play();
+	public void play(Board board);
 }
