@@ -74,11 +74,11 @@ public class Game implements Runnable {
 		}
 	}
 	
-	public boolean isHuman(boolean player1) {
+	public Player getPlayer(boolean player1) {
 		if (player1)
-			return p1 == Player.HUMAN;
+			return p1;
 		else
-			return p2 == Player.HUMAN;
+			return p2;
 	}
 	
 	public boolean isP1Turn() {

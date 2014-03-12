@@ -27,5 +27,6 @@
     <string name="action_settings">Settings</string>
     <string name="developer_info_headline">Über diese App:</string>
     <string name="developer_info">Platzhalter</string>
+    <string name="bt_player">Bluetooth-Gegner</string>
 
 </resources>

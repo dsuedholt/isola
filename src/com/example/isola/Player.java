@@ -4,7 +4,8 @@ public enum Player {
 	HUMAN(R.string.human),
 	EASY(R.string.computer_easy),
 	MEDIUM(R.string.computer_medium),
-	HARD(R.string.computer_hard);
+	HARD(R.string.computer_hard),
+	BTPLAYER(R.string.bt_player);
 	
 	private int id;
 	
