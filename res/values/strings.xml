@@ -28,5 +28,6 @@
     <string name="developer_info_headline">Über diese App:</string>
     <string name="developer_info">Platzhalter</string>
     <string name="bt_player">Bluetooth-Gegner</string>
+    <string name="toast_connected">Verbindung erfolgreich</string>
 
 </resources>

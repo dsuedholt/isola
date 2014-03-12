@@ -63,7 +63,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			switch(msg.what){
 			case SUCCESS_CONNECT:
 				connectedThread = new ConnectedThread((BluetoothSocket)msg.obj);
-				Toast.makeText(getApplicationContext(), "CONNECTED", 0).show(); // TODO: string
+				Toast.makeText(getApplicationContext(), R.string.toast_connected, 0).show();
 				connectedThread.start();
 				Log.i(tag, "connected");
 				isPlayer1=false; //player 2
@@ -213,18 +213,11 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			
 			public void onClick(View v) {
 				startOpen();
-				//setContentView(R.layout.activity_bt_create);
+				setContentView(R.layout.activity_bt_create);
 			}
 		});
 	}
-	
-	private void sendMsg() {
-		if(connectedThread!=null)
-		{
-			//byte[] bytes = toSend.getBytes();
-			//connectedThread.write(bytes);
-		}
-	}
+
 	
 	public void startOpen()
 	{
@@ -431,6 +424,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				isPlayer1=true;
 				p2 = Player.BTPLAYER;
 				startGame();
+				Toast.makeText(getApplicationContext(), R.string.toast_connected, 0).show();
 				runOnUiThread(new Runnable() {				
 					@Override
 					public void run() {
