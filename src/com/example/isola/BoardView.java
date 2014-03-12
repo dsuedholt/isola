@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -31,6 +32,8 @@ public class BoardView extends View implements Observer {
 	private Bitmap tile_player2_resized;
 	private GameEvent received_event;
 	private int margin_left = 10; //for the text
+	private int text_size;
+	private Rect rect;
 	private boolean initialized = false;
 	private boolean player2_has_destroyed = false;
 	
@@ -49,6 +52,7 @@ public class BoardView extends View implements Observer {
 		paint.setStyle(Style.STROKE);
 		paint_text = new Paint();
 		paint_text.setColor(Color.WHITE);
+		paint_text.setTextAlign(Align.CENTER);
 		invalidate();
 	}
 	
@@ -67,7 +71,9 @@ public class BoardView extends View implements Observer {
 		tile_player2 = BitmapFactory.decodeResource(getResources(), R.drawable.tile_player2);
 		
 		tilewidth = getWidth() / Board.WIDTH;
-		paint_text.setTextSize(getHeight() / 32);
+		text_size = getHeight() / 32;
+		paint_text.setTextSize(text_size);
+		rect = new Rect(5, 8 * tilewidth + 10, getWidth() - 5, getHeight() - 5);
 		
 		tile_free_resized = Bitmap.createScaledBitmap(tile_free, tilewidth, tilewidth, false);
 		tile_destroyed_resized = Bitmap.createScaledBitmap(tile_destroyed, tilewidth, tilewidth, true);
@@ -82,7 +88,7 @@ public class BoardView extends View implements Observer {
 		canvas.drawColor(Color.rgb(35, 35, 35));
 		if(!initialized) {
 			init_bitmaps();
-			canvas.drawText(getResources().getString(R.string.player1_move), margin_left, 8 * tilewidth + 40, paint_text);
+			canvas.drawText(getResources().getString(R.string.player1_move), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 		}
 		for (int i = 0; i < Board.WIDTH; i++) {
 			for (int j = 0; j < Board.HEIGHT; j++) {
@@ -106,29 +112,28 @@ public class BoardView extends View implements Observer {
 		
 		if(received_event instanceof MoveEvent) {
 			if(((MoveEvent)received_event).isPlayer1()) {
-				canvas.drawText(getResources().getString(R.string.player1_destroy), margin_left, 8 * tilewidth + 40, paint_text);
+				canvas.drawText(getResources().getString(R.string.player1_destroy), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 			} else {
-				canvas.drawText(getResources().getString(R.string.player2_destroy), margin_left, 8 * tilewidth + 40, paint_text);
+				canvas.drawText(getResources().getString(R.string.player2_destroy), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 			}
 		}
 		if(received_event instanceof DestroyEvent) {
 			if(player2_has_destroyed) {
-				canvas.drawText(getResources().getString(R.string.player1_move), margin_left, 8 * tilewidth + 40, paint_text);
+				canvas.drawText(getResources().getString(R.string.player1_move), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 				player2_has_destroyed = false;
 			} else {
-				canvas.drawText(getResources().getString(R.string.player2_move), margin_left, 8 * tilewidth + 40, paint_text);
+				canvas.drawText(getResources().getString(R.string.player2_move), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 				player2_has_destroyed = true;
 			}
 		}
 		if(received_event instanceof GameOverEvent) {
 			if(((GameOverEvent)received_event).isPlayer1()) {
-				canvas.drawText(getResources().getString(R.string.player1_win), margin_left, 8 * tilewidth + 40, paint_text);
+				canvas.drawText(getResources().getString(R.string.player1_win), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 			} else {
-				canvas.drawText(getResources().getString(R.string.player2_win), margin_left, 8 * tilewidth + 40, paint_text);
+				canvas.drawText(getResources().getString(R.string.player2_win), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 			}
 		}
-		
-		canvas.drawRect(5, 8 * tilewidth + 10, getWidth() - 5, getHeight() - 5, paint);
+		canvas.drawRect(rect, paint);
 	}
 
 	@Override
