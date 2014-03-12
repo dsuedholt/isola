@@ -101,19 +101,26 @@ public class Board extends Observable {
 		return hasLost(true) || hasLost(false);
 	}
 	
-	public boolean hasLost(boolean player1) {
+	public int getPossibleMoveCount(boolean player1) {
+		int counter = 0;
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				if (player1 && validIndices(x1 + i, y1 + j)) {
-					if (board[x1 + i][y1 + j] == Tile.FREE)
-						return false;
+					if (board[x1 + i][y1 + j] == Tile.FREE) {
+						counter++;
+					}
 				} else if (!player1 && validIndices(x2 + i, y2 + j)) {
-					if (board[x2 + i][y2 + j] == Tile.FREE)
-						return false;
+					if (board[x2 + i][y2 + j] == Tile.FREE) {
+						counter++;
+					}
 				}
 			}
 		}
-		return true;
+		return counter;
+	}
+	
+	public boolean hasLost(boolean player1) {
+		return getPossibleMoveCount(player1) == 0;
 	}
 	
 	public boolean canDestroy(int x, int y) {
