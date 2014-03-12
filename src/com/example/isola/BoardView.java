@@ -109,6 +109,10 @@ public class BoardView extends View implements Observer {
 				}
 			}
 		}
+		canvas.drawRect(rect, paint);
+		
+		if (received_event == null)
+			return;
 		
 		switch (received_event.getType()) {
 		case MOVE:
@@ -135,7 +139,6 @@ public class BoardView extends View implements Observer {
 			}
 			break;
 		}
-		canvas.drawRect(rect, paint);
 	}
 
 	@Override
