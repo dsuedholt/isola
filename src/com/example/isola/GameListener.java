@@ -21,10 +21,9 @@ public class GameListener implements View.OnTouchListener {
 			Point coords = bv.getTileCoords((int) ev.getX(), (int) ev.getY());
 			if (coords != null) {
 				game.doTurn(coords.x, coords.y);
-				return true;
 			}
 		}
-		return false;
+		return true;
 	}
 
 }
