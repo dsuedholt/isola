@@ -22,5 +22,6 @@
     <string name="choose_players">Spieler auswählen:</string>
     <string name="begin_game">Spiel beginnen</string>
     <string name="title_activity_game">GameActivity</string>
+    <string name="waiting_for_client">Warten auf den Client...</string>
 
 </resources>
