@@ -428,11 +428,11 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				isPlayer1=true;
 				p2 = Player.BTPLAYER;
 				startGame();
-				Toast.makeText(getApplicationContext(), R.string.toast_connected, 0).show();
 				runOnUiThread(new Runnable() {				
 					@Override
 					public void run() {
 						setContentView(bv);
+						Toast.makeText(getApplicationContext(), R.string.toast_connected, 0).show();
 					}
 				});
 			}

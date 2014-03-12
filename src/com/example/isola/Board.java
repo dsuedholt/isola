@@ -106,12 +106,20 @@ public class Board extends Observable {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				if (player1 && validIndices(x1 + i, y1 + j)) {
-					if (board[x1 + i][y1 + j] == Tile.FREE) {
-						counter++;
+					try {
+						if (board[x1 + i][y1 + j] == Tile.FREE) {
+							counter++;
+						}
+					} catch (Exception e) {
+						int abc =0;
 					}
 				} else if (!player1 && validIndices(x2 + i, y2 + j)) {
-					if (board[x2 + i][y2 + j] == Tile.FREE) {
-						counter++;
+					try {
+						if (board[x2 + i][y2 + j] == Tile.FREE) {
+							counter++;
+						}
+					} catch (Exception e) {
+						int abcd=0;
 					}
 				}
 			}
