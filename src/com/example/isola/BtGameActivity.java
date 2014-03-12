@@ -72,8 +72,13 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				connectedThread.write(s.getBytes());
 				connectedThread.start();
 				Log.i(tag, "connected");
-				//not tested
 				playerNumber=player2;
+				runOnUiThread(new Runnable() {				
+					@Override
+					public void run() {
+						setContentView(bv);
+					}
+				});
 				break;
 			case MESSAGE_READ:
 				byte[] readBuf = (byte[])msg.obj;
@@ -433,6 +438,12 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				connectedThread = new ConnectedThread(socket);
 				connectedThread.start();
 				playerNumber=player1;
+				runOnUiThread(new Runnable() {				
+					@Override
+					public void run() {
+						setContentView(bv);
+					}
+				});
 			}
 
 			/** Will cancel the listening socket, and cause the thread to finish */
