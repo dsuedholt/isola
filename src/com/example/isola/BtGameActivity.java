@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Set;
 import java.util.UUID;
+
+import com.example.isola.GameEvent.EventType;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -91,26 +94,29 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			return;
 		GameEvent ev = (GameEvent) data;
 		Log.i(tag, "update event");
-		if(ev instanceof DestroyEvent)
-		{
+		byte x;
+		byte y;
+		byte[] bytes= new byte[2];
+		switch (ev.getType()) {
+		case DESTROY:
 			DestroyEvent de = (DestroyEvent) ev;
-			byte x = (byte) de.getX();
-			byte y = (byte) de.getY();
-			byte[] bytes = {x,y};
-			connectedThread.write(bytes);
-		}
-		else if(ev instanceof MoveEvent)
-		{
+			x = (byte) de.getX();
+			y = (byte) de.getY();
+			bytes[0]=x;
+			bytes[1]=y;
+			break;
+		case MOVE:
 			MoveEvent me = (MoveEvent)ev;
-			byte x = (byte) me.getNewX();
-			byte y = (byte) me.getNewY();
-			byte[] bytes = {x,y};
-			connectedThread.write(bytes);
-		}
-		else
-		{
+			x = (byte) me.getNewX();
+			y = (byte) me.getNewY();
+			bytes[0]=x;
+			bytes[1]=y;
+			break;
+		case GAMEOVER:
 			//TODO: run some game ends code
+			break;
 		}
+		connectedThread.write(bytes);
 	}
 	
 	
