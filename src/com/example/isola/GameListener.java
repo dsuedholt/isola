@@ -18,8 +18,11 @@ public class GameListener implements View.OnTouchListener {
 			(!game.isP1Turn() && game.isHuman(false))) {
 			BoardView bv = (BoardView) v;
 			Point coords = bv.getTileCoords((int) ev.getX(), (int) ev.getY());
-			game.doTurn(coords.x, coords.y);
-			return true;
+			if(coords == null) {
+				return false;
+			} else {
+				game.doTurn(coords.x, coords.y);
+			}
 		}
 		return false;
 	}
