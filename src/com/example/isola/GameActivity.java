@@ -33,14 +33,14 @@ public class GameActivity extends Activity implements Observer {
 		
 		setContentView(bv);
 		
-		startGame();
-		
-		bv.setOnTouchListener(new GameListener(game));
+		if(startAtOnce)
+			startGame();
 	}
 	
 	protected void startGame() {
 		game = new Game(board, p1, p2);
 		(new Thread(game)).start();
+		bv.setOnTouchListener(new GameListener(game));
 	}
 	
 	@Override

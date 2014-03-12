@@ -67,6 +67,8 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				connectedThread.start();
 				Log.i(tag, "connected");
 				isPlayer1=false; //player 2
+				p1 = Player.BTPLAYER;
+				startGame();
 				runOnUiThread(new Runnable() {				
 					@Override
 					public void run() {
@@ -427,6 +429,8 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				connectedThread = new ConnectedThread(socket);
 				connectedThread.start();
 				isPlayer1=true;
+				p2 = Player.BTPLAYER;
+				startGame();
 				runOnUiThread(new Runnable() {				
 					@Override
 					public void run() {
