@@ -110,14 +110,15 @@ public class BoardView extends View implements Observer {
 			}
 		}
 		
-		if(received_event instanceof MoveEvent) {
+		switch (received_event.getType()) {
+		case MOVE:
 			if(((MoveEvent)received_event).isPlayer1()) {
 				canvas.drawText(getResources().getString(R.string.player1_destroy), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 			} else {
 				canvas.drawText(getResources().getString(R.string.player2_destroy), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 			}
-		}
-		if(received_event instanceof DestroyEvent) {
+			break;
+		case DESTROY:
 			if(player2_has_destroyed) {
 				canvas.drawText(getResources().getString(R.string.player1_move), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 				player2_has_destroyed = false;
@@ -125,13 +126,14 @@ public class BoardView extends View implements Observer {
 				canvas.drawText(getResources().getString(R.string.player2_move), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 				player2_has_destroyed = true;
 			}
-		}
-		if(received_event instanceof GameOverEvent) {
+			break;
+		case GAMEOVER:
 			if(((GameOverEvent)received_event).isPlayer1()) {
 				canvas.drawText(getResources().getString(R.string.player1_win), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 			} else {
 				canvas.drawText(getResources().getString(R.string.player2_win), getWidth() / 2, rect.centerY() + text_size / 2, paint_text);
 			}
+			break;
 		}
 		canvas.drawRect(rect, paint);
 	}
