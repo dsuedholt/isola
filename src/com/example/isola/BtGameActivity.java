@@ -137,6 +137,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
         	startDiscovery();
         }
     }
+
     
 	private void startDiscovery() {
 		btAdapter.cancelDiscovery();
@@ -212,8 +213,11 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		create.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				startOpen();
-				setContentView(R.layout.activity_bt_create);
+				if(btAdapter.isEnabled())
+				{
+					startOpen();
+					setContentView(R.layout.activity_bt_create);
+				}
 			}
 		});
 	}
