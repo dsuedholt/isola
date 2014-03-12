@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Set;
 import java.util.UUID;
-
-import com.example.isola.GameEvent.EventType;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
