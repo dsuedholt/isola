@@ -49,7 +49,6 @@ public class BoardView extends View implements Observer {
 		paint.setStyle(Style.STROKE);
 		paint_text = new Paint();
 		paint_text.setColor(Color.WHITE);
-		paint_text.setTextSize(25);
 		invalidate();
 	}
 	
@@ -68,6 +67,7 @@ public class BoardView extends View implements Observer {
 		tile_player2 = BitmapFactory.decodeResource(getResources(), R.drawable.tile_player2);
 		
 		tilewidth = getWidth() / Board.WIDTH;
+		paint_text.setTextSize(getHeight() / 32);
 		
 		tile_free_resized = Bitmap.createScaledBitmap(tile_free, tilewidth, tilewidth, false);
 		tile_destroyed_resized = Bitmap.createScaledBitmap(tile_destroyed, tilewidth, tilewidth, true);
