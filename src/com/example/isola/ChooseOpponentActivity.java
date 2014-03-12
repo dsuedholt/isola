@@ -14,9 +14,6 @@ public class ChooseOpponentActivity extends Activity {
 	
 	private static Context mContext; //so Enum Player can reference
 	
-	public static String PLAYER1_KEY = "player1";
-	public static String PLAYER2_KEY = "player2";
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,8 +34,8 @@ public class ChooseOpponentActivity extends Activity {
 				Player chosen_player1 = (Player) choose_player1.getSelectedItem();
 				Player chosen_player2 = (Player) choose_player2.getSelectedItem();
 				Intent start_game_activity = new Intent(mContext, GameActivity.class);
-				start_game_activity.putExtra(PLAYER1_KEY, chosen_player1);
-				start_game_activity.putExtra(PLAYER2_KEY, chosen_player2);
+				start_game_activity.putExtra(GameActivity.PLAYER1_KEY, chosen_player1);
+				start_game_activity.putExtra(GameActivity.PLAYER2_KEY, chosen_player2);
 				startActivity(start_game_activity);
 			}
 		});

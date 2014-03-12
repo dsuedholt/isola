@@ -11,9 +11,6 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 	
-	public static String PLAYER1_KEY = "player1";
-	public static String PLAYER2_KEY = "player2";
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		final MainActivity usedInOnClickListener = this;
@@ -44,8 +41,9 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent_btGame = new Intent(usedInOnClickListener, BtGameActivity.class);
-				intent_btGame.putExtra(PLAYER1_KEY, Player.HUMAN);
-				intent_btGame.putExtra(PLAYER2_KEY, Player.HUMAN);
+				intent_btGame.putExtra(GameActivity.PLAYER1_KEY, Player.HUMAN);
+				intent_btGame.putExtra(GameActivity.PLAYER2_KEY, Player.HUMAN);
+				intent_btGame.putExtra(GameActivity.STARTATONCE_KEY, false);
 				startActivity(intent_btGame);
 			}
 		});

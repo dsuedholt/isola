@@ -11,6 +11,10 @@ import android.os.Bundle;
 
 public class GameActivity extends Activity implements Observer {
 	
+	public static final String PLAYER1_KEY = "player1";
+	public static final String PLAYER2_KEY = "player2";
+	public static final String STARTATONCE_KEY = "startatonce";
+	
 	protected Board board;
 	protected Game game;
 	protected BoardView bv;
@@ -20,20 +24,25 @@ public class GameActivity extends Activity implements Observer {
 		super.onCreate(savedInstanceState);
 		board = new Board();
 		Intent startIntent = getIntent();
-		p1 = (Player) startIntent.getSerializableExtra(ChooseOpponentActivity.PLAYER1_KEY);
-		p2 = (Player) startIntent.getSerializableExtra(ChooseOpponentActivity.PLAYER2_KEY);
+		p1 = (Player) startIntent.getSerializableExtra(PLAYER1_KEY);
+		p2 = (Player) startIntent.getSerializableExtra(PLAYER2_KEY);
+		boolean startAtOnce = startIntent.getBooleanExtra(STARTATONCE_KEY, true);
 		bv = new BoardView(this, board);
 		board.addObserver(this);
 		board.addObserver(bv);
 		
 		setContentView(bv);
 		
-		game = new Game(board, p1, p2);
-		(new Thread(game)).start();
+		startGame();
 		
 		bv.setOnTouchListener(new GameListener(game));
 	}
-
+	
+	protected void startGame() {
+		game = new Game(board, p1, p2);
+		(new Thread(game)).start();
+	}
+	
 	@Override
 	public void update(Observable board, Object data) {
 		GameEvent ev = (GameEvent) data;
