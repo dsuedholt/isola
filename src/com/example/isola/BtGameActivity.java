@@ -40,8 +40,6 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 	ArrayAdapter<String> listAdapter;
 	ListView listView;
 	Button create;
-	Button send;
-	EditText msg;
 	BluetoothAdapter btAdapter;
 	Set<BluetoothDevice> devicesArray;
 	ArrayList<String> pairedDevices;
@@ -57,7 +55,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 	//game attributes
 	private int playerNumber;
 	private static final int player1 = 1;
-	private static final int player2 = 1;
+	private static final int player2 = 2;
 	
 	Handler mHandler = new Handler(){
 		@Override
@@ -68,8 +66,6 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			case SUCCESS_CONNECT:
 				connectedThread = new ConnectedThread((BluetoothSocket)msg.obj);
 				Toast.makeText(getApplicationContext(), "CONNECT", 0).show();
-				String s = "successfully connected";
-				connectedThread.write(s.getBytes());
 				connectedThread.start();
 				Log.i(tag, "connected");
 				playerNumber=player2;
@@ -82,19 +78,20 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				break;
 			case MESSAGE_READ:
 				byte[] readBuf = (byte[])msg.obj;
-				String string = new String(readBuf);
-				Toast.makeText(getApplicationContext(), string, 0).show();
-				//game.doTurn(x, y);
+				int x = readBuf[0];
+				int y = readBuf[1];			
+				game.doTurn(x, y);
 				break;
 			}
 		}
 	};
 	
-	/*
-	//not tested
+
 	@Override
 	public void update(Observable board, Object data) {
-		//return if the change come from device
+		//return if the change come from the other device
+		if(!(game.isP1Turn()==(playerNumber==player1)))
+			return;
 		GameEvent ev = (GameEvent) data;
 		Log.i(tag, "update event");
 		if(ev instanceof DestroyEvent)
@@ -111,13 +108,14 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			byte x = (byte) me.getNewX();
 			byte y = (byte) me.getNewY();
 			byte[] bytes = {x,y};
+			connectedThread.write(bytes);
 		}
 		else
 		{
 			//TODO: run some game ends code
 		}
 	}
-	*/
+	
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -215,23 +213,13 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				//setContentView(R.layout.activity_bt_create);
 			}
 		});
-		msg = (EditText) findViewById(R.id.editTextMsg);
-		send = (Button) findViewById(R.id.buttonSend);
-		send.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				sendMsg();
-			}
-		});
 	}
 	
 	private void sendMsg() {
 		if(connectedThread!=null)
 		{
-			String toSend = msg.getText().toString();
-			byte[] bytes = toSend.getBytes();
-			connectedThread.write(bytes);
-			msg.setText("");
+			//byte[] bytes = toSend.getBytes();
+			//connectedThread.write(bytes);
 		}
 	}
 	

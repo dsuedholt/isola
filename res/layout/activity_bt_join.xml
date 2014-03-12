@@ -23,29 +23,8 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonSend" >
+        android:layout_below="@+id/buttonStartAcc" >
 
     </ListView>
-
-    <Button
-        android:id="@+id/buttonSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/buttonStartAcc"
-        android:layout_below="@+id/buttonStartAcc"
-        android:text="sendMessage" />
-
-    <EditText
-        android:id="@+id/editTextMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonSend"
-        android:layout_alignBottom="@+id/buttonSend"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/buttonSend"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
 
 </RelativeLayout>
