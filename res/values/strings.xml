@@ -29,5 +29,11 @@
     <string name="developer_info">Platzhalter</string>
     <string name="bt_player">Bluetooth-Gegner</string>
     <string name="toast_connected">Verbindung erfolgreich</string>
+    <string name="player1_move">Spieler 1: Figur bewegen</string>
+    <string name="player2_move">Spieler 2: Figur bewegen</string>
+    <string name="player1_destroy">Spieler 1: Feld zerstören</string>
+    <string name="player2_destroy">Spieler 2: Feld zerstören</string>
+    <string name="player1_win">Spieler 1 hat gewonnen!</string>
+    <string name="player2_win">Spieler 2 hat gewonnen!</string>
 
 </resources>

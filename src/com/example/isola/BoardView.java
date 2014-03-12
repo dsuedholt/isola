@@ -4,6 +4,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,9 +20,21 @@ public class BoardView extends View implements Observer {
 	
 	private Board board;
 	private Paint paint;
-	private Rect rect;
+	private Paint paint_text;
+	private Bitmap tile_free;
+	private Bitmap tile_destroyed;
+	private Bitmap tile_player1;
+	private Bitmap tile_player2;
+	private Bitmap tile_free_resized;
+	private Bitmap tile_destroyed_resized;
+	private Bitmap tile_player1_resized;
+	private Bitmap tile_player2_resized;
+	private GameEvent received_event;
+	private int margin_left = 10; //for the text
+	private boolean initialized = false;
+	private boolean player2_has_destroyed = false;
 	
-	private int tilewidth, tileheight;
+	private int tilewidth;
 	
 	public BoardView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -30,53 +44,96 @@ public class BoardView extends View implements Observer {
 		super(context);
 		this.board = board;
 		paint = new Paint();
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.rgb(54, 181, 255));
 		paint.setStrokeWidth(3);
+		paint.setStyle(Style.STROKE);
+		paint_text = new Paint();
+		paint_text.setColor(Color.WHITE);
+		paint_text.setTextSize(25);
 		invalidate();
-		rect = new Rect();
 	}
 	
 	public Point getTileCoords(int x, int y) {
-		tilewidth = getWidth() / Board.WIDTH;
-		tileheight = tilewidth;
-		Point toReturn = new Point(x / tilewidth, y / tileheight);
+		Point toReturn = new Point(x / tilewidth, y / tilewidth);
 		if(toReturn.x >= Board.WIDTH || toReturn.y >= Board.HEIGHT) {
 			return null;
 		}
 		return toReturn;
 	}
 	
+	private void init_bitmaps() {
+		tile_free = BitmapFactory.decodeResource(getResources(), R.drawable.tile_free);
+		tile_destroyed = BitmapFactory.decodeResource(getResources(), R.drawable.tile_destroyed);
+		tile_player1 = BitmapFactory.decodeResource(getResources(), R.drawable.tile_player1);
+		tile_player2 = BitmapFactory.decodeResource(getResources(), R.drawable.tile_player2);
+		
+		tilewidth = getWidth() / Board.WIDTH;
+		
+		tile_free_resized = Bitmap.createScaledBitmap(tile_free, tilewidth, tilewidth, false);
+		tile_destroyed_resized = Bitmap.createScaledBitmap(tile_destroyed, tilewidth, tilewidth, true);
+		tile_player1_resized = Bitmap.createScaledBitmap(tile_player1, tilewidth, tilewidth, true);
+		tile_player2_resized = Bitmap.createScaledBitmap(tile_player2, tilewidth, tilewidth, true);
+		
+		initialized = true;
+	}
+	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		tilewidth = getWidth() / Board.WIDTH;
-		tileheight = tilewidth;
-		canvas.drawColor(Color.WHITE);
+		canvas.drawColor(Color.rgb(35, 35, 35));
+		if(!initialized) {
+			init_bitmaps();
+			canvas.drawText(getResources().getString(R.string.player1_move), margin_left, 8 * tilewidth + 40, paint_text);
+		}
 		for (int i = 0; i < Board.WIDTH; i++) {
 			for (int j = 0; j < Board.HEIGHT; j++) {
 
-				rect.set(i * tilewidth, j * tileheight, (i + 1) * tilewidth, (j + 1) * tileheight);
 				switch(board.getTile(i, j)) {
 				case PLAYER1:
-					paint.setColor(Color.RED); break;
+					canvas.drawBitmap(tile_player1_resized, i * tilewidth, j * tilewidth, null);
+					break;
 				case PLAYER2:
-					paint.setColor(Color.BLUE); break;
+					canvas.drawBitmap(tile_player2_resized, i * tilewidth, j * tilewidth, null);
+					break;
 				case FREE:
-					paint.setColor(Color.BLACK); break;
+					canvas.drawBitmap(tile_free_resized, i * tilewidth, j * tilewidth, null);
+					break;
 				case DESTROYED:
-					paint.setColor(Color.BLACK); break;
+					canvas.drawBitmap(tile_destroyed_resized, i * tilewidth, j * tilewidth, null);
+					break;
 				}
-				if (board.getTile(i, j) == Tile.FREE) {
-					paint.setStyle(Style.STROKE);
-				} else {
-					paint.setStyle(Style.FILL);
-				}
-				canvas.drawRect(rect, paint);
 			}
 		}
+		
+		if(received_event instanceof MoveEvent) {
+			if(((MoveEvent)received_event).isPlayer1()) {
+				canvas.drawText(getResources().getString(R.string.player1_destroy), margin_left, 8 * tilewidth + 40, paint_text);
+			} else {
+				canvas.drawText(getResources().getString(R.string.player2_destroy), margin_left, 8 * tilewidth + 40, paint_text);
+			}
+		}
+		if(received_event instanceof DestroyEvent) {
+			if(player2_has_destroyed) {
+				canvas.drawText(getResources().getString(R.string.player1_move), margin_left, 8 * tilewidth + 40, paint_text);
+				player2_has_destroyed = false;
+			} else {
+				canvas.drawText(getResources().getString(R.string.player2_move), margin_left, 8 * tilewidth + 40, paint_text);
+				player2_has_destroyed = true;
+			}
+		}
+		if(received_event instanceof GameOverEvent) {
+			if(((GameOverEvent)received_event).isPlayer1()) {
+				canvas.drawText(getResources().getString(R.string.player1_win), margin_left, 8 * tilewidth + 40, paint_text);
+			} else {
+				canvas.drawText(getResources().getString(R.string.player2_win), margin_left, 8 * tilewidth + 40, paint_text);
+			}
+		}
+		
+		canvas.drawRect(5, 8 * tilewidth + 10, getWidth() - 5, getHeight() - 5, paint);
 	}
 
 	@Override
 	public void update(Observable board, Object o) {
+		received_event = (GameEvent) o;
 		postInvalidate();
 	}
 }
