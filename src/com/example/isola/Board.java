@@ -27,10 +27,10 @@ public class Board extends Observable {
 				board[i][j] = Tile.FREE;
 			}
 		}
-		x1 = WIDTH / 2 - 1;
-		y1 = 0;
-		x2 = WIDTH /2 ;
-		y2 = HEIGHT - 1;
+		x1 = WIDTH /2 ;
+		y1 = HEIGHT - 1;
+		x2 = WIDTH / 2 - 1;
+		y2 = 0;
 		board[x1][y1] = Tile.PLAYER1;
 		board[x2][y2] = Tile.PLAYER2;
 	}
