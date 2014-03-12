@@ -17,6 +17,15 @@ public class Board extends Observable {
 		init();
 	}
 	
+	public Board(Board copy) {
+		this();
+		for (int i = 0; i < WIDTH; i++) {
+			for (int j = 0; j < HEIGHT; j++) {
+				this.board[i][j] = copy.board[i][j];
+			}
+		}
+	}
+	
 	/**
 	 * Initializes the board to the starting position, with every tile undestroyed
 	 * and the players on their starting squares

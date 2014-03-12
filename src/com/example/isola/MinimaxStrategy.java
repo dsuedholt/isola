@@ -19,4 +19,8 @@ public class MinimaxStrategy extends Strategy {
 		dummy.doDestroy();
 	}
 	
+	private double evaluate(Board board) {
+		return 0;
+	}
+	
 }
