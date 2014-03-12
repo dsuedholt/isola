@@ -4,9 +4,6 @@ import java.util.Random;
 
 public class SimpleStrategy extends Strategy {
 	
-	//player coordinates
-	private int x, y;
-	
 	public SimpleStrategy(Board board, boolean player1) {
 		super(board, player1);
 	}
@@ -67,18 +64,4 @@ public class SimpleStrategy extends Strategy {
 		} while (!board.canDestroy(i, j));
 		board.destroy(i, j);
 	}
-	
-	private void findPosition(boolean player1) {
-		for (int i = 0; i < Board.WIDTH; i++) {
-			for (int j = 0; j < Board.HEIGHT; j++) {
-				if ((board.getTile(i, j) == Tile.PLAYER1 && player1) ||
-					(board.getTile(i, j) == Tile.PLAYER2 && !player1)) {
-					x = i;
-					y = j;
-					return;
-				}
-			}
-		}
-	}
-
 }

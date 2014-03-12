@@ -1,5 +1,7 @@
 package com.example.isola;
 
+import android.util.Log;
+
 public class Game implements Runnable {
 	
 	private Board board;
@@ -17,6 +19,8 @@ public class Game implements Runnable {
 	}
 	
 	public Game(Board board, Player p1, Player p2) {
+		
+		Log.i("minimax", "entered Game constructor");
 		this.board = board;
 		this.p1 = p1;
 		this.p2 = p2;

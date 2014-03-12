@@ -24,6 +24,10 @@ public class Board extends Observable {
 				this.board[i][j] = copy.board[i][j];
 			}
 		}
+		this.x1 = copy.x1;
+		this.y1 = copy.y1;
+		this.x2 = copy.x2;
+		this.y2 = copy.y2;
 	}
 	
 	/**
@@ -110,16 +114,16 @@ public class Board extends Observable {
 						if (board[x1 + i][y1 + j] == Tile.FREE) {
 							counter++;
 						}
-					} catch (Exception e) {
-						int abc =0;
+					} catch (ArrayIndexOutOfBoundsException e) {
+						e.printStackTrace();
 					}
 				} else if (!player1 && validIndices(x2 + i, y2 + j)) {
 					try {
 						if (board[x2 + i][y2 + j] == Tile.FREE) {
 							counter++;
 						}
-					} catch (Exception e) {
-						int abcd=0;
+					} catch (ArrayIndexOutOfBoundsException e) {
+						e.printStackTrace();
 					}
 				}
 			}
