@@ -59,7 +59,8 @@ public class MainActivity extends Activity {
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		System.out.println("Eintrag erkannt");
+		Intent start_info_activity = new Intent(this, InfoActivity.class);
+		startActivity(start_info_activity);
 		return true;
 	}
 

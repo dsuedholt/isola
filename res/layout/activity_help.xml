@@ -20,6 +20,7 @@
         android:layout_marginBottom="20dp"
         android:layout_alignParentLeft="true"
         android:text="@string/how_to_play"
+        android:scrollbars="vertical"
         android:textSize="20sp" />
     
 	<TextView
