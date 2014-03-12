@@ -32,12 +32,12 @@ public class MinimaxStrategy extends Strategy {
 	}
 
 	private ArrayList<TreeNode> generateChildMoves(TreeNode node) {
-		Log.i("minimax", "entered generateChildMoves()");
-		ArrayList<TreeNode> result = new ArrayList<TreeNode>();
-
+		ArrayList<TreeNode> result = new ArrayList<TreeNode>();	
+		
 		if (node.hasMoved) {
+			findPosition(node.board, !node.player1);
 			// look for fields to destroy
-			for (int i = 0; i < Board.WIDTH; i++) {
+			/**for (int i = 0; i < Board.WIDTH; i++) {
 				for (int j = 0; j < Board.HEIGHT; j++) {
 					if (node.board.canDestroy(i, j)) {
 						Board board = new Board(node.board);
@@ -46,18 +46,26 @@ public class MinimaxStrategy extends Strategy {
 						result.add(tmp);
 					}
 				}
+			}**/
+			for (int i = -1; i <= 1; i++) {
+				for (int j = -1; j <= 1; j++) {
+					if (node.board.canDestroy(x + i, j + y)) {
+						Board board = new Board(node.board);
+						board.destroy(x + i, j + y);
+						TreeNode tmp = new TreeNode(board, false, node.player1, x + i, j + y);
+						result.add(tmp);
+					}
+				}
 			}
 
 		} else {
-			
 			findPosition(node.board, !node.player1);
-			
 			// look for fields to move to
 			for (int i = -1; i <= 1; i++) {
 				for (int j = -1; j <= 1; j++) {
-					if (node.board.canMove(player1, x + i, y + j)) {
+					if (node.board.canMove(!node.player1, x + i, y + j)) {
 						Board board = new Board(node.board);
-						board.move(player1, x + i, j + y);
+						board.move(!node.player1, x + i, j + y);
 						TreeNode tmp = new TreeNode(board, true, !node.player1, x + i, y + j);
 						result.add(tmp);
 					}
@@ -69,7 +77,6 @@ public class MinimaxStrategy extends Strategy {
 
 	@Override
 	protected void doMove() {
-		Log.i("minimax", "entered doMove()");
 		TreeNode root = new TreeNode(board, false, !player1, 0, 0);
 		TreeNode best = bestMove(root);
 		board.move(player1, best.x, best.y);
@@ -77,18 +84,14 @@ public class MinimaxStrategy extends Strategy {
 
 	@Override
 	protected void doDestroy() {
-		Log.i("minimax", "entered doDestroy()");
 		TreeNode root = new TreeNode(board, true, player1, 0, 0);
 		TreeNode best = bestMove(root);
 		board.destroy(best.x, best.y);
 	}
 	
 	private TreeNode bestMove(TreeNode root) {
-		String logstring = "entered bestMove() for ";
-		logstring += (root.hasMoved)?"moving":"destroying";
-		Log.i("minimax", logstring);
 		TreeNode best = null;
-		int bestVal = -10;
+		int bestVal = -100000;
 		for (TreeNode node : generateChildMoves(root)) {
 			int val = minimax(node, depth);
 			if (val > bestVal) {
@@ -100,7 +103,6 @@ public class MinimaxStrategy extends Strategy {
 	}
 	
 	private int minimax(TreeNode node, int depth) {
-		Log.i("minimax", "entered minimax with depth " + depth);
 		if (depth == 0 || node.board.isOver()) {
 			return evaluate(node);
 		}
@@ -109,13 +111,13 @@ public class MinimaxStrategy extends Strategy {
 		// are we evaluating our moves or the opponent's?
 		if ((node.player1 == this.player1 && node.hasMoved) ||
 			 node.player1 != this.player1 && !node.hasMoved) {
-			bestVal = -10;
+			bestVal = -100000;
 			for (TreeNode n : moves) {
 				int val = minimax(n, depth - 1);
 				bestVal = Math.max(val, bestVal);
 			}
 		} else {
-			bestVal = 10;
+			bestVal = 100000;
 			for (TreeNode n : moves) {
 				int val = minimax(n, depth - 1);
 				bestVal = Math.min(val, bestVal);
@@ -125,20 +127,28 @@ public class MinimaxStrategy extends Strategy {
 	}
 	
 	private void findPosition(Board board, boolean player1) {
-		Board tmp = this.board;
-		this.board = board;
-		findPosition(player1);
-		this.board = tmp;
+		for (int i = 0; i < Board.WIDTH; i++) {
+			for (int j = 0; j < Board.HEIGHT; j++) {
+				if ((board.getTile(i, j) == Tile.PLAYER1 && player1) ||
+					(board.getTile(i, j) == Tile.PLAYER2 && !player1)) {
+					x = i;
+					y = j;
+					return;
+				}
+			}
+		}
 	}
 	
 	private int evaluate(TreeNode node) {
-		int myMoves = node.board.getPossibleMoveCount(node.player1);
-		int theirMoves = node.board.getPossibleMoveCount(!node.player1);
-		if (myMoves == 0)
-			return -9;
-		if (theirMoves == 0)
-			return 9;
-		return myMoves - theirMoves;
+		if (node.board.hasLost(!player1))
+			return 1000;
+		if (node.board.hasLost(player1))
+			return -1000;
+		
+		if (node.hasMoved)
+			return (3 * node.board.getPossibleMoveCount(player1) / 2) + (8 - node.board.getPossibleMoveCount(!node.player1)) / 2;
+		else
+			return (3 * (8 - node.board.getPossibleMoveCount(!node.player1)) / 2) + node.board.getPossibleMoveCount(player1) / 2;
 	}
 	
 }
