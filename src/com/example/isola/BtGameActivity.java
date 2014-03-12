@@ -33,7 +33,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 /**
  * @author Felix Kibellus
- * @version Pre-Alpha
+ * @version Alpha
  * */
 public class BtGameActivity extends GameActivity implements OnItemClickListener {
 
@@ -53,9 +53,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 	ConnectedThread connectedThread;
 	
 	//game attributes
-	private int playerNumber;
-	private static final int player1 = 1;
-	private static final int player2 = 2;
+	private boolean isPlayer1;
 	
 	Handler mHandler = new Handler(){
 		@Override
@@ -65,10 +63,10 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			switch(msg.what){
 			case SUCCESS_CONNECT:
 				connectedThread = new ConnectedThread((BluetoothSocket)msg.obj);
-				Toast.makeText(getApplicationContext(), "CONNECT", 0).show();
+				Toast.makeText(getApplicationContext(), "CONNECTED", 0).show(); // TODO: string
 				connectedThread.start();
 				Log.i(tag, "connected");
-				playerNumber=player2;
+				isPlayer1=false; //player 2
 				runOnUiThread(new Runnable() {				
 					@Override
 					public void run() {
@@ -90,7 +88,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 	@Override
 	public void update(Observable board, Object data) {
 		//return if the change come from the other device
-		if(!(game.isP1Turn()==(playerNumber==player1)))
+		if(!(game.isP1Turn()==isPlayer1))
 			return;
 		GameEvent ev = (GameEvent) data;
 		Log.i(tag, "update event");
@@ -428,7 +426,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		    private void manageConnectedSocket(BluetoothSocket socket) {
 				connectedThread = new ConnectedThread(socket);
 				connectedThread.start();
-				playerNumber=player1;
+				isPlayer1=true;
 				runOnUiThread(new Runnable() {				
 					@Override
 					public void run() {

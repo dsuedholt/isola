@@ -37,14 +37,18 @@ public class BoardView extends View implements Observer {
 	
 	public Point getTileCoords(int x, int y) {
 		tilewidth = getWidth() / Board.WIDTH;
-		tileheight = getHeight() / Board.HEIGHT;
-		return new Point(x / tilewidth, y / tileheight);
+		tileheight = tilewidth;
+		Point toReturn = new Point(x / tilewidth, y / tileheight);
+		if(toReturn.x >= Board.WIDTH || toReturn.y >= Board.HEIGHT) {
+			return null;
+		}
+		return toReturn;
 	}
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		tilewidth = getWidth() / Board.WIDTH;
-		tileheight = getHeight() / Board.HEIGHT;
+		tileheight = tilewidth;
 		canvas.drawColor(Color.WHITE);
 		for (int i = 0; i < Board.WIDTH; i++) {
 			for (int j = 0; j < Board.HEIGHT; j++) {
