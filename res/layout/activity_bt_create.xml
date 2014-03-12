@@ -4,21 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="create a wait for client layout here"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <ProgressBar
-        android:id="@+id/progressBar1"
+        android:id="@+id/progressBar_btcreate"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/textView_btcreate"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_marginBottom="18dp" />
+
+    <TextView
+        android:id="@+id/textView_btcreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="218dp"
+        android:text="@string/waiting_for_client"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </RelativeLayout>
