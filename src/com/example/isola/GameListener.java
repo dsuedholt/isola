@@ -14,8 +14,9 @@ public class GameListener implements View.OnTouchListener {
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent ev) {
-		if ((game.isP1Turn() && game.getPlayer(true) == Player.HUMAN) ||
-			(!game.isP1Turn() && game.getPlayer(false) == Player.HUMAN)) {
+		if (((game.isP1Turn() && game.getPlayer(true) == Player.HUMAN) ||
+			(!game.isP1Turn() && game.getPlayer(false) == Player.HUMAN)) &&
+			  ev.getAction() == MotionEvent.ACTION_UP) {
 			BoardView bv = (BoardView) v;
 			Point coords = bv.getTileCoords((int) ev.getX(), (int) ev.getY());
 			if (coords != null) {
