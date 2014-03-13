@@ -32,7 +32,7 @@ public class Game implements Runnable {
 		case MEDIUM:
 			comp1 = new MinimaxStrategy(board, true, 2); break;
 		case HARD:
-			comp1 = new MinimaxStrategy(board, true, 4); break;
+			comp1 = new MinimaxStrategy(board, true, 3); break;
 		default: comp1 = null;
 		}
 		
@@ -42,7 +42,7 @@ public class Game implements Runnable {
 		case MEDIUM:
 			comp2 = new MinimaxStrategy(board, false, 2); break;
 		case HARD:
-			comp2 = new MinimaxStrategy(board, false, 4); break;
+			comp2 = new MinimaxStrategy(board, false, 3); break;
 		default: comp2 = null;
 		}
 		

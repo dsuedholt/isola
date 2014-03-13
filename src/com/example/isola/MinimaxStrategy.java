@@ -2,8 +2,6 @@ package com.example.isola;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 public class MinimaxStrategy extends Strategy {
 	
 	private int depth;
@@ -26,7 +24,7 @@ public class MinimaxStrategy extends Strategy {
 		super(board, player1);
 		
 		// take into account both players having to do move AND destroy
-		this.depth = depth * 2;
+		this.depth = depth * 2 + 1;
 		
 		WAITINGTIME = 0;
 	}
@@ -91,9 +89,9 @@ public class MinimaxStrategy extends Strategy {
 	
 	private TreeNode bestMove(TreeNode root) {
 		TreeNode best = null;
-		int bestVal = -100000;
+		int bestVal = Integer.MIN_VALUE;
 		for (TreeNode node : generateChildMoves(root)) {
-			int val = minimax(node, depth);
+			int val = minimax(node, depth, Integer.MIN_VALUE, Integer.MAX_VALUE);
 			if (val > bestVal) {
 				bestVal = val;
 				best = node;
@@ -102,28 +100,30 @@ public class MinimaxStrategy extends Strategy {
 		return best;
 	}
 	
-	private int minimax(TreeNode node, int depth) {
+	private int minimax(TreeNode node, int depth, int alpha, int beta) {
 		if (depth == 0 || node.board.isOver()) {
 			return evaluate(node);
 		}
-		int bestVal;
 		ArrayList<TreeNode> moves = generateChildMoves(node);
 		// are we evaluating our moves or the opponent's?
 		if ((node.player1 == this.player1 && node.hasMoved) ||
 			 node.player1 != this.player1 && !node.hasMoved) {
-			bestVal = -100000;
 			for (TreeNode n : moves) {
-				int val = minimax(n, depth - 1);
-				bestVal = Math.max(val, bestVal);
+				int val = minimax(n, depth - 1, alpha, beta);
+				alpha = Math.max(val, alpha);
+				if (beta <= alpha)
+					break;
 			}
+			return alpha;
 		} else {
-			bestVal = 100000;
 			for (TreeNode n : moves) {
-				int val = minimax(n, depth - 1);
-				bestVal = Math.min(val, bestVal);
+				int val = minimax(n, depth - 1, alpha, beta);
+				beta = Math.min(val, beta);
+				if (beta <= alpha)
+					break;
 			}
+			return beta;
 		}
-		return bestVal;
 	}
 	
 	private void findPosition(Board board, boolean player1) {
