@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="250dp"
+        android:gravity="center"
         android:text="@string/waiting_for_client"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -26,6 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView_btcreate"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp" />
+        android:layout_marginBottom="50dp" />
 
     </RelativeLayout>

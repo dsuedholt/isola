@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:alpha="-230"
+        android:alpha="0.9"
         android:background="@drawable/button_custom"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"

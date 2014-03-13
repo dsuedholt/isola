@@ -22,7 +22,7 @@
     <string name="choose_players">Spieler auswählen:</string>
     <string name="begin_game">Spiel beginnen</string>
     <string name="title_activity_game">GameActivity</string>
-    <string name="waiting_for_client">Warten auf den Client...</string>
+    <string name="waiting_for_client">Warten auf den Client\n...</string>
     <string name="title_activity_info">InfoActivity</string>
     <string name="action_settings">Settings</string>
     <string name="developer_info_headline">Über diese App:</string>
