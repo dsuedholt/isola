@@ -39,5 +39,7 @@
     <string name="back">Zurück</string>
     <string name="devices_to_join">Geräte zum Verbinden</string>
     <string name="string_btn_host_game">Spiel erstellen</string>
+    <string name="bt_must_act">Bluetooth muss aktiviert werden um fortzufahren</string>
+    <string name="device_must_paired">Die Geräte müssen zuerst gekoppelt werden um einem Spiel beizutreten</string>
 
 </resources>
