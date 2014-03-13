@@ -9,7 +9,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme" >
         <activity
-            android:name="com.example.isola.MainActivity"
+            android:name="com.example.isola.android.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -27,26 +27,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.isola.ChooseOpponentActivity"
+            android:name="com.example.isola.android.ChooseOpponentActivity"
             android:label="@string/title_activity_choose_opponent"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.example.isola.HelpActivity"
+            android:name="com.example.isola.android.HelpActivity"
             android:label="@string/title_activity_help"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.example.isola.GameActivity"
+            android:name="com.example.isola.android.GameActivity"
             android:label="@string/title_activity_game"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.example.isola.BtGameActivity"
+            android:name="com.example.isola.android.BtGameActivity"
             android:label="@string/title_activity_btgame" >
         </activity>
         <activity
-            android:name="com.example.isola.InfoActivity"
+            android:name="com.example.isola.android.InfoActivity"
             android:label="@string/title_activity_info" >
         </activity>
     </application>

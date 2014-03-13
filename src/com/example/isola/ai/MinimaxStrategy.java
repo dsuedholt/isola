@@ -1,6 +1,9 @@
-package com.example.isola;
+package com.example.isola.ai;
 
 import java.util.ArrayList;
+
+import com.example.isola.game.Board;
+import com.example.isola.game.Tile;
 
 public class MinimaxStrategy extends Strategy {
 	
@@ -14,6 +17,7 @@ public class MinimaxStrategy extends Strategy {
 		private TreeNode(Board board, boolean hasMoved, boolean player1, int x, int y) {
 			this.board = board;
 			this.hasMoved = hasMoved;
+			// the player that has made the move leading to this node
 			this.player1 = player1;
 			this.x = x;
 			this.y = y;
@@ -26,7 +30,8 @@ public class MinimaxStrategy extends Strategy {
 		// take into account both players having to do move AND destroy
 		this.depth = depth * 2 + 1;
 		
-		WAITINGTIME = 0;
+		WAITINGTIME = 800 - depth * 100;
+		WAITINGTIME = (WAITINGTIME > 0)?WAITINGTIME:0;
 	}
 
 	private ArrayList<TreeNode> generateChildMoves(TreeNode node) {

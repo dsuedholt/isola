@@ -1,4 +1,4 @@
-package com.example.isola;
+package com.example.isola.game;
 
 public class GameOverEvent extends GameEvent {
 	

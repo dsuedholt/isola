@@ -1,4 +1,7 @@
-package com.example.isola;
+package com.example.isola.game;
+
+import com.example.isola.R;
+import com.example.isola.android.ChooseOpponentActivity;
 
 public enum Player {
 	HUMAN(R.string.human),

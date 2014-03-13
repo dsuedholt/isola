@@ -1,4 +1,7 @@
-package com.example.isola;
+package com.example.isola.android;
+
+import com.example.isola.game.Game;
+import com.example.isola.game.Player;
 
 import android.graphics.Point;
 import android.view.MotionEvent;

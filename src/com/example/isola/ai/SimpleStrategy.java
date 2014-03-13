@@ -1,6 +1,8 @@
-package com.example.isola;
+package com.example.isola.ai;
 
 import java.util.Random;
+
+import com.example.isola.game.Board;
 
 public class SimpleStrategy extends Strategy {
 	

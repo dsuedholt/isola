@@ -1,4 +1,4 @@
-package com.example.isola;
+package com.example.isola.android;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Set;
 import java.util.UUID;
-
-import com.example.isola.GameEvent.EventType;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -28,9 +26,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.isola.R;
+import com.example.isola.game.DestroyEvent;
+import com.example.isola.game.GameEvent;
+import com.example.isola.game.MoveEvent;
+import com.example.isola.game.Player;
 /**
  * @author Felix Kibellus
  * @version Alpha

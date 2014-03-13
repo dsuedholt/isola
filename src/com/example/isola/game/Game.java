@@ -1,4 +1,8 @@
-package com.example.isola;
+package com.example.isola.game;
+
+import com.example.isola.ai.MinimaxStrategy;
+import com.example.isola.ai.SimpleStrategy;
+import com.example.isola.ai.Strategy;
 
 import android.util.Log;
 

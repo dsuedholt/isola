@@ -1,4 +1,4 @@
-package com.example.isola;
+package com.example.isola.android;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -15,7 +15,12 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
+
+import com.example.isola.R;
+import com.example.isola.game.Board;
+import com.example.isola.game.GameEvent;
+import com.example.isola.game.GameOverEvent;
+import com.example.isola.game.MoveEvent;
 
 public class BoardView extends View implements Observer {
 	

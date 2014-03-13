@@ -1,4 +1,4 @@
-package com.example.isola;
+package com.example.isola.game;
 
 public abstract class GameEvent {
 	public enum EventType {

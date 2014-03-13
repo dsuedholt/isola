@@ -1,4 +1,4 @@
-package com.example.isola;
+package com.example.isola.android;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,9 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import com.example.isola.R;
+import com.example.isola.game.Player;
 
 public class ChooseOpponentActivity extends Activity {
 	

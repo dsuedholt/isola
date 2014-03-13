@@ -1,12 +1,14 @@
-package com.example.isola;
+package com.example.isola.android;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.isola.R;
 
 public class InfoActivity extends Activity {
 

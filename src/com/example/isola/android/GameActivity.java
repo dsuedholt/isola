@@ -1,9 +1,13 @@
-package com.example.isola;
+package com.example.isola.android;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import com.example.isola.GameEvent.EventType;
+import com.example.isola.game.Board;
+import com.example.isola.game.Game;
+import com.example.isola.game.GameEvent;
+import com.example.isola.game.Player;
+import com.example.isola.game.GameEvent.EventType;
 
 import android.app.Activity;
 import android.content.Intent;
