@@ -79,29 +79,35 @@ public class GameActivity extends Activity implements Observer {
 		startActivity(backIntent);
 	}
 	
-	protected void endGame(boolean player1) {
-		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-		    @Override
-		    public void onClick(DialogInterface dialog, int which) {
-		        switch (which) {
-		        case DialogInterface.BUTTON_POSITIVE:
-		            startGame();
-		            break;
+	protected void endGame(final boolean player1) {
+		final GameActivity outer = this;
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				        switch (which) {
+				        case DialogInterface.BUTTON_POSITIVE:
+				            startGame();
+				            break;
 
-		        case DialogInterface.BUTTON_NEGATIVE:
-		            endGame();
-		            break;
-		        }
-		    }
-		};
+				        case DialogInterface.BUTTON_NEGATIVE:
+				            endGame();
+				            break;
+				        }
+				    }
+				};
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
-		String message = player1?getString(R.string.player1_win):getString(R.string.player2_win);
-		String rematch = getString(R.string.rematch);
-		String back = getString(R.string.back);
-		
-		builder.setMessage(message).setPositiveButton(rematch, dialogClickListener)
-		    .setNegativeButton(back, dialogClickListener).show();
+				AlertDialog.Builder builder = new AlertDialog.Builder(outer);
+				
+				String message = player1?getString(R.string.player1_win):getString(R.string.player2_win);
+				String rematch = getString(R.string.rematch);
+				String back = getString(R.string.back);
+				
+				builder.setMessage(message).setPositiveButton(rematch, dialogClickListener)
+				    .setNegativeButton(back, dialogClickListener).show();
+			}
+		});
 	}
 }

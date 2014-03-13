@@ -100,9 +100,9 @@ public class MinimaxStrategy extends Strategy {
 	
 	private TreeNode bestMove(TreeNode root) {
 		TreeNode best = null;
-		int bestVal = Integer.MIN_VALUE;
+		double bestVal = Double.NEGATIVE_INFINITY;
 		for (TreeNode node : generateChildMoves(root)) {
-			int val = minimax(node, depth, Integer.MIN_VALUE, Integer.MAX_VALUE);
+			double val = minimax(node, depth, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 			if (val > bestVal) {
 				bestVal = val;
 				best = node;
@@ -111,7 +111,7 @@ public class MinimaxStrategy extends Strategy {
 		return best;
 	}
 	
-	private int minimax(TreeNode node, int depth, int alpha, int beta) {
+	private double minimax(TreeNode node, int depth, double alpha, double beta) {
 		if (depth == 0 || node.board.isOver()) {
 			return evaluate(node);
 		}
@@ -120,7 +120,7 @@ public class MinimaxStrategy extends Strategy {
 		if ((node.player1 == this.player1 && node.hasMoved) ||
 			 node.player1 != this.player1 && !node.hasMoved) {
 			for (TreeNode n : moves) {
-				int val = minimax(n, depth - 1, alpha, beta);
+				double val = minimax(n, depth - 1, alpha, beta);
 				alpha = Math.max(val, alpha);
 				if (beta <= alpha)
 					break;
@@ -128,7 +128,7 @@ public class MinimaxStrategy extends Strategy {
 			return alpha;
 		} else {
 			for (TreeNode n : moves) {
-				int val = minimax(n, depth - 1, alpha, beta);
+				double val = minimax(n, depth - 1, alpha, beta);
 				beta = Math.min(val, beta);
 				if (beta <= alpha)
 					break;
@@ -137,14 +137,14 @@ public class MinimaxStrategy extends Strategy {
 		}
 	}
 	
-	private int evaluate(TreeNode node) {
+	private double evaluate(TreeNode node) {
 		if (node.board.hasLost(!player1))
 			return 1000;
 		if (node.board.hasLost(player1))
 			return -1000;
 		
-		int myMoves = node.board.getPossibleMoveCount(player1);
-		int theirMoves = node.board.getPossibleMoveCount(!node.player1);
+		double myMoves = node.board.getPossibleMoveCount(player1);
+		double theirMoves = node.board.getPossibleMoveCount(!node.player1);
 		
 		if (node.hasMoved)
 			return (3 * myMoves / 2) + (8 - theirMoves) / 2;
