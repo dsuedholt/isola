@@ -41,6 +41,11 @@ public class MainActivity extends Activity {
 		
 		newBtGame.setOnClickListener(new OnClickListener() {
 			
+			/**
+			 * Create a GameActivity for a Bluetooth game
+			 * The player on his own device is a HUMAN, the opponent is a BTPLAYER
+			 * The selection of Player 1 and Player 2 is controlled by the BtGameActivity later on
+			 * */
 			@Override
 			public void onClick(View v) {
 				Intent intent_btGame = new Intent(usedInOnClickListener, BtGameActivity.class);

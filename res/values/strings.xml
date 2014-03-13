@@ -37,5 +37,7 @@
     <string name="player2_win">Spieler 2 hat gewonnen!</string>
     <string name="rematch">Revanche</string>
     <string name="back">Zurück</string>
+    <string name="devices_to_join">Geräte zum Verbinden</string>
+    <string name="string_btn_host_game">Spiel erstellen</string>
 
 </resources>

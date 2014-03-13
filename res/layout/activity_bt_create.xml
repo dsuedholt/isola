@@ -2,25 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:background="@drawable/background_bluetooth" >
+
+    <TextView
+        android:id="@+id/textView_btcreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="228dp"
+        android:text="@string/waiting_for_client"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ProgressBar
         android:id="@+id/progressBar_btcreate"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView_btcreate"
+        android:layout_alignBottom="@+id/textView_btcreate"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp" />
-
-    <TextView
-        android:id="@+id/textView_btcreate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="218dp"
-        android:text="@string/waiting_for_client"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginBottom="37dp" />
 
     </RelativeLayout>

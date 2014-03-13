@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -88,7 +89,14 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			}
 		}
 	};
-	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+	        if(connectedThread!=null)
+	        	connectedThread.cancel();
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 
 	@Override
 	public void update(Observable board, Object data) {
