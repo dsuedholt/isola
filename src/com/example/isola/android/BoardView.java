@@ -36,7 +36,6 @@ public class BoardView extends View implements Observer {
 	private Bitmap tile_player1_resized;
 	private Bitmap tile_player2_resized;
 	private GameEvent received_event;
-	private int margin_left = 10; //for the text
 	private int text_size;
 	private Rect rect;
 	private boolean initialized;
