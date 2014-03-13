@@ -51,12 +51,11 @@ public class GameActivity extends Activity implements Observer {
 		if (game == null) {
 			game = new Game(board, p1, p2);
 		}
-		if (gameThread == null) {
-			gameThread = new Thread(game);
-			gameThread.start();
-		}
+		if (gameThread != null)
+			gameThread.interrupt();
 		
-		game.init();
+		gameThread = new Thread(game);
+		gameThread.start();
 		
 		if (gl == null) {
 			gl = new GameListener(game);
