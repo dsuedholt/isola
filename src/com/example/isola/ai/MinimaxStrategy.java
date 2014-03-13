@@ -42,9 +42,7 @@ public class MinimaxStrategy extends Strategy {
 	 */
 	public MinimaxStrategy(Board board, boolean player1, int depth) {
 		super(board, player1);
-		
-		// take into account both players having to do move AND destroy
-		this.depth = depth * 2 + 1;
+		this.depth = depth;
 		
 		WAITINGTIME = 800 - depth * 100;
 		WAITINGTIME = (WAITINGTIME > 0)?WAITINGTIME:0;
@@ -56,8 +54,8 @@ public class MinimaxStrategy extends Strategy {
 		if (node.hasMoved) {
 			Point pos = node.board.getPlayerPosition(!node.player1);
 			// look for fields to destroy
-			for (int i = -1; i <= 1; i++) {
-				for (int j = -1; j <= 1; j++) {
+			for (int i = -2; i <= 2; i++) {
+				for (int j = -2; j <= 2; j++) {
 					if (node.board.canDestroy(pos.x + i, pos.y + j)) {
 						Board board = new Board(node.board);
 						board.destroy(pos.x + i, pos.y + j);
@@ -139,17 +137,30 @@ public class MinimaxStrategy extends Strategy {
 	
 	private double evaluate(TreeNode node) {
 		if (node.board.hasLost(!player1))
-			return 1000;
+			return Double.POSITIVE_INFINITY;
 		if (node.board.hasLost(player1))
-			return -1000;
+			return Double.NEGATIVE_INFINITY;
 		
-		double myMoves = node.board.getPossibleMoveCount(player1);
-		double theirMoves = node.board.getPossibleMoveCount(!node.player1);
+		double myPosition = node.board.getPossibleMoveCount(player1)
+				- proximityToCenter(node.board, player1);
+		double theirPosition = node.board.getPossibleMoveCount(!player1)
+			    - proximityToCenter(node.board, !player1);
 		
+		// favor the a good position of ours over a bad one of theirs
+		// when moving, the other way round when destroying
 		if (node.hasMoved)
-			return (3 * myMoves / 2) + (8 - theirMoves) / 2;
+			return (3 * myPosition / 2) - theirPosition / 2;
 		else
-			return (3 * (8 - theirMoves) / 2) + myMoves / 2;
+			return  myPosition / 2 - (3 * theirPosition / 2);
 	}
 	
+	private double proximityToCenter(Board board, boolean player1) {
+		Point pos = board.getPlayerPosition(player1);
+		
+		double centerx = (Board.WIDTH - 1) / 2.;
+		double centery = (Board.HEIGHT - 1) / 2.;
+		
+		return Math.sqrt(Math.pow(centerx - pos.x, 2) 
+			           + Math.pow(centery - pos.y, 2));
+	}
 }

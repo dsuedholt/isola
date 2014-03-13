@@ -48,9 +48,9 @@ public class Game implements Runnable {
 		case EASY:
 			comp1 = new SimpleStrategy(board, true); break;
 		case MEDIUM:
-			comp1 = new MinimaxStrategy(board, true, 2); break;
-		case HARD:
 			comp1 = new MinimaxStrategy(board, true, 3); break;
+		case HARD:
+			comp1 = new MinimaxStrategy(board, true, 5); break;
 		default: comp1 = null;
 		}
 		
@@ -58,9 +58,9 @@ public class Game implements Runnable {
 		case EASY:
 			comp2 = new SimpleStrategy(board, false); break;
 		case MEDIUM:
-			comp2 = new MinimaxStrategy(board, false, 2); break;
-		case HARD:
 			comp2 = new MinimaxStrategy(board, false, 3); break;
+		case HARD:
+			comp2 = new MinimaxStrategy(board, false, 5); break;
 		default: comp2 = null;
 		}
 		
