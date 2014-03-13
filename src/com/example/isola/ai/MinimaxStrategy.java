@@ -2,6 +2,8 @@ package com.example.isola.ai;
 
 import java.util.ArrayList;
 
+import android.graphics.Point;
+
 import com.example.isola.game.Board;
 import com.example.isola.game.Tile;
 
@@ -38,38 +40,28 @@ public class MinimaxStrategy extends Strategy {
 		ArrayList<TreeNode> result = new ArrayList<TreeNode>();	
 		
 		if (node.hasMoved) {
-			findPosition(node.board, !node.player1);
+			Point pos = node.board.getPlayerPosition(!node.player1);
 			// look for fields to destroy
-			/**for (int i = 0; i < Board.WIDTH; i++) {
-				for (int j = 0; j < Board.HEIGHT; j++) {
-					if (node.board.canDestroy(i, j)) {
-						Board board = new Board(node.board);
-						board.destroy(i, j);
-						TreeNode tmp = new TreeNode(board, false, node.player1, i, j);
-						result.add(tmp);
-					}
-				}
-			}**/
 			for (int i = -1; i <= 1; i++) {
 				for (int j = -1; j <= 1; j++) {
-					if (node.board.canDestroy(x + i, j + y)) {
+					if (node.board.canDestroy(pos.x + i, pos.y + j)) {
 						Board board = new Board(node.board);
-						board.destroy(x + i, j + y);
-						TreeNode tmp = new TreeNode(board, false, node.player1, x + i, j + y);
+						board.destroy(pos.x + i, pos.y + j);
+						TreeNode tmp = new TreeNode(board, false, node.player1, pos.x + i, pos.y + j);
 						result.add(tmp);
 					}
 				}
 			}
 
 		} else {
-			findPosition(node.board, !node.player1);
+			Point pos = node.board.getPlayerPosition(!node.player1);
 			// look for fields to move to
 			for (int i = -1; i <= 1; i++) {
 				for (int j = -1; j <= 1; j++) {
-					if (node.board.canMove(!node.player1, x + i, y + j)) {
+					if (node.board.canMove(!node.player1, pos.x + i, pos.y + j)) {
 						Board board = new Board(node.board);
-						board.move(!node.player1, x + i, j + y);
-						TreeNode tmp = new TreeNode(board, true, !node.player1, x + i, y + j);
+						board.move(!node.player1, pos.x + i, pos.y + j);
+						TreeNode tmp = new TreeNode(board, true, !node.player1, pos.x + i, pos.y + j);
 						result.add(tmp);
 					}
 				}
@@ -128,19 +120,6 @@ public class MinimaxStrategy extends Strategy {
 					break;
 			}
 			return beta;
-		}
-	}
-	
-	private void findPosition(Board board, boolean player1) {
-		for (int i = 0; i < Board.WIDTH; i++) {
-			for (int j = 0; j < Board.HEIGHT; j++) {
-				if ((board.getTile(i, j) == Tile.PLAYER1 && player1) ||
-					(board.getTile(i, j) == Tile.PLAYER2 && !player1)) {
-					x = i;
-					y = j;
-					return;
-				}
-			}
 		}
 	}
 	
