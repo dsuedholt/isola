@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.graphics.Point;
 
 import com.example.isola.game.Board;
-import com.example.isola.game.Tile;
 
 public class MinimaxStrategy extends Strategy {
 	

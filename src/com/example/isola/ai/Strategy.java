@@ -1,9 +1,8 @@
 package com.example.isola.ai;
 
-import com.example.isola.game.Board;
-import com.example.isola.game.Tile;
-
 import android.util.Log;
+
+import com.example.isola.game.Board;
 
 public abstract class Strategy {
 	
