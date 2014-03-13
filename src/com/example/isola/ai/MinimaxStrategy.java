@@ -6,6 +6,10 @@ import android.graphics.Point;
 
 import com.example.isola.game.Board;
 
+/**
+ * This class represents a computer player that implements the Alpha-Beta-Pruning variant of the 
+ * Minimax-Algorithm to find the best move.
+ */
 public class MinimaxStrategy extends Strategy {
 	
 	private int depth;
@@ -17,14 +21,25 @@ public class MinimaxStrategy extends Strategy {
 		
 		private TreeNode(Board board, boolean hasMoved, boolean player1, int x, int y) {
 			this.board = board;
+			
+			// was the turn leading to this node a player move or destruction of a field?
 			this.hasMoved = hasMoved;
+			
 			// the player that has made the move leading to this node
 			this.player1 = player1;
+			
 			this.x = x;
 			this.y = y;
 		}
 	}
 	
+	/**
+	 * Construct the MinimaxStrategy.
+	 * @param board   The game board.
+	 * @param player1 True if the computer player is player1, false otherwise.
+	 * @param depth   Integer representing how far down the game tree the computer should look
+	 * for the best move. Higher depth means better moves but significantly longer calculation periods.
+	 */
 	public MinimaxStrategy(Board board, boolean player1, int depth) {
 		super(board, player1);
 		
@@ -128,10 +143,13 @@ public class MinimaxStrategy extends Strategy {
 		if (node.board.hasLost(player1))
 			return -1000;
 		
+		int myMoves = node.board.getPossibleMoveCount(player1);
+		int theirMoves = node.board.getPossibleMoveCount(!node.player1);
+		
 		if (node.hasMoved)
-			return (3 * node.board.getPossibleMoveCount(player1) / 2) + (8 - node.board.getPossibleMoveCount(!node.player1)) / 2;
+			return (3 * myMoves / 2) + (8 - theirMoves) / 2;
 		else
-			return (3 * (8 - node.board.getPossibleMoveCount(!node.player1)) / 2) + node.board.getPossibleMoveCount(player1) / 2;
+			return (3 * (8 - theirMoves) / 2) + myMoves / 2;
 	}
 	
 }

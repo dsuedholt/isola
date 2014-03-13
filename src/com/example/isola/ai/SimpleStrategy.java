@@ -6,8 +6,16 @@ import android.graphics.Point;
 
 import com.example.isola.game.Board;
 
+/**
+ * This class represents a very naive computer player that will almost always lose.
+ */
 public class SimpleStrategy extends Strategy {
 	
+	/**
+	 * Construct the computer player.
+	 * @param board   The game board
+	 * @param player1 True if the computer is player1, false otherwise.
+	 */
 	public SimpleStrategy(Board board, boolean player1) {
 		super(board, player1);
 	}
