@@ -12,7 +12,8 @@ public abstract class GameEvent {
 	public enum EventType {
 		MOVE,
 		DESTROY,
-		GAMEOVER
+		GAMEOVER,
+		GAMESTART
 	}
 	
 	private EventType type;

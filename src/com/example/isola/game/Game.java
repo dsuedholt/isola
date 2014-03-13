@@ -152,7 +152,7 @@ public class Game implements Runnable {
 	public void run() {
 		init();
 		
-		while (true) {
+		while (!Thread.currentThread().isInterrupted()) {
 			if (gameState == GameState.P1TOMOVE && Player.isComputer(p1)) {
 				comp1.play();
 				gameState = GameState.P2TOMOVE;

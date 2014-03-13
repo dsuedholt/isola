@@ -35,5 +35,7 @@
     <string name="player2_destroy">Spieler 2: Feld zerstören</string>
     <string name="player1_win">Spieler 1 hat gewonnen!</string>
     <string name="player2_win">Spieler 2 hat gewonnen!</string>
+    <string name="rematch">Revanche</string>
+    <string name="back">Zurück</string>
 
 </resources>

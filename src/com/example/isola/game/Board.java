@@ -32,7 +32,7 @@ public class Board extends Observable {
 	 * @param copy The board instance to be copied.
 	 */
 	public Board(Board copy) {
-		this();
+		board = new Tile[WIDTH][HEIGHT];
 		for (int i = 0; i < WIDTH; i++) {
 			for (int j = 0; j < HEIGHT; j++) {
 				this.board[i][j] = copy.board[i][j];
@@ -46,7 +46,8 @@ public class Board extends Observable {
 	
 	/**
 	 * Initializes the board to the starting position, with every tile undestroyed
-	 * and the players on their starting squares
+	 * and the players on their starting squares. Notify the observers that a 
+	 * GameStartEvent has occurred.
 	 */
 	public void init() {
 		for (int i = 0; i < WIDTH; i++) {
@@ -60,6 +61,8 @@ public class Board extends Observable {
 		y2 = 0;
 		board[x1][y1] = Tile.PLAYER1;
 		board[x2][y2] = Tile.PLAYER2;
+		setChanged();
+		notifyObservers(new GameStartEvent());
 	}
 	
 	/**
