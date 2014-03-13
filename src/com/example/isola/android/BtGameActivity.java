@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.isola.R;
 import com.example.isola.game.DestroyEvent;
 import com.example.isola.game.GameEvent;
+import com.example.isola.game.GameOverEvent;
 import com.example.isola.game.MoveEvent;
 import com.example.isola.game.Player;
 /**
@@ -131,7 +132,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			bytes[1]=y;
 			break;
 		case GAMEOVER:
-			//TODO: run some game ends code
+			endGame();
 			break;
 		}
 		connectedThread.write(bytes);
@@ -159,16 +160,24 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
         }
     }
 
-    
+    /**
+     * The method starts the search for other bluetooth-devices
+     * */
 	private void startDiscovery() {
 		btAdapter.cancelDiscovery();
 		btAdapter.startDiscovery();
 	}
 	
+	/**
+	 * Starts the bluetooth-adapter
+	 * */
 	private void turnOnBT() {
 		btAdapter.enable();
 	}
 	
+	/**
+	 * searches for paired Devices
+	 * */
 	private void getPairedDevices() {
 		devicesArray = btAdapter.getBondedDevices();
 		if(devicesArray.size()>0){
@@ -178,6 +187,9 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		}
 	}
 	
+	/**
+	 * Initializes the attributes
+	 * */
 	private void init() {
 		listView=(ListView)findViewById(R.id.listView);
 		listView.setOnItemClickListener(this);
@@ -208,10 +220,10 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				}
 				
 				else if(BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)){
-					// run some code
+					// run some code if needed later
 				}
 				else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)){
-					// run some code				
+					// run some code if needed later				
 				}
 				
 				else if(BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)){
@@ -243,7 +255,9 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		});
 	}
 
-	
+	/**
+	 * Opens a game (start a acceptThread) and makes the bluetooth-device visible
+	 * */
 	public void startOpen()
 	{
 		Intent discoverableIntent = new
@@ -259,15 +273,22 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		super.onPause();
 		unregisterReceiver(receiver);
 	}
-
+	/**
+	 * shows a warning (Toast) if the user does not want to activate bluetooth
+	 * */
 		@Override
 		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 			super.onActivityResult(requestCode, resultCode, data);
 			if(resultCode == RESULT_CANCELED){
-				Toast.makeText(getApplicationContext(), "Bluetooth must be enabled to continue", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.bt_must_act, Toast.LENGTH_SHORT).show();
 				finish();
 			}
 		}
+		
+		/**
+		 * If the chosen device is paired and has opened a game the player joins this game
+		 * If not the player gets a warning (Toast) that the devices must be paired
+		 * */
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			
@@ -282,10 +303,15 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 				Log.i(tag, "in click listener");
 			}
 			else{
-				Toast.makeText(getApplicationContext(), "device is not paired", 0).show();
+				Toast.makeText(getApplicationContext(), R.string.device_must_paired, 0).show();
 			}
 		}
 		
+		/**
+		 * As long as there is no connection the Thread waits at mmSocket.connect()
+		 * If a connection succeeds the ConnectThread starts the obtainMessage-method 
+		 * of the handler and informs it about the connection
+		 * */
 		private class ConnectThread extends Thread {
 		
 			private final BluetoothSocket mmSocket;
@@ -341,7 +367,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		}
 		
 		/**
-		 * Thread witch is interacting with the connected Socket
+		 * Thread which is interacting with the connected Socket
 		 * read and write data to the streams with read(byte[]) and write(byte[])
 		 * */
 		private class ConnectedThread extends Thread {
@@ -402,9 +428,9 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		}
 		
 		/**
-		 * Thread to accept a Bluetooth device
+		 * Thread to accept a bluetooth-device
 		 * The Thread is listening for connection request by calling accept
-		 * The Thread ends if a device connect and start a connected Thread
+		 * The Thread ends if a device connects and start a connected Thread
 		 * */
 		private class AcceptThread extends Thread {
 		    private final BluetoothServerSocket mmServerSocket;
