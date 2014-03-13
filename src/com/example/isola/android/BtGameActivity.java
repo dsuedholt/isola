@@ -38,6 +38,7 @@ import com.example.isola.game.Player;
 /**
  * @author Felix Kibellus
  * @version Alpha
+ * BtGameActivity is a class for a game about a bluetooth-connection
  * */
 public class BtGameActivity extends GameActivity implements OnItemClickListener {
 
@@ -58,7 +59,11 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 	
 	//game attributes
 	private boolean isPlayer1;
-	
+	/**
+	 * The Handler reacts to a receive of the connected socket
+	 * If it is a SUCCESS_CONNECT-receive a game is started
+	 * if it is a  MESSAGE_READ-receive the turn is sent to the local game
+	 * */
 	Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -89,15 +94,17 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 			}
 		}
 	};
+	
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-	        if(connectedThread!=null)
-	        	connectedThread.cancel();
-	    }
-	    return super.onKeyDown(keyCode, event);
+	public void onBackPressed() {
+	    if(connectedThread!=null)
+	    	connectedThread.cancel();
+	    finish();
 	}
-
+	/**
+	 * If the local board has changed this method decides whether it is a DESTROY or a MOVE event.
+	 * Then the coordinates of the turn are sent to the opponent
+	 * */
 	@Override
 	public void update(Observable board, Object data) {
 		//return if the change come from the other device
@@ -130,7 +137,10 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		connectedThread.write(bytes);
 	}
 	
-	
+	/**
+	 * The onCreate-Method runs the constructor of GameActivity and initializes the game
+	 * After that it is proved whether bluetooth is enabled, if not it is activated
+	 * */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -436,6 +446,7 @@ public class BtGameActivity extends GameActivity implements OnItemClickListener 
 		    private void manageConnectedSocket(BluetoothSocket socket) {
 				connectedThread = new ConnectedThread(socket);
 				connectedThread.start();
+				this.cancel();
 				isPlayer1=true;
 				p2 = Player.BTPLAYER;
 				startGame();
