@@ -2,6 +2,8 @@ package com.example.isola.ai;
 
 import java.util.Random;
 
+import android.graphics.Point;
+
 import com.example.isola.game.Board;
 
 public class SimpleStrategy extends Strategy {
@@ -12,8 +14,7 @@ public class SimpleStrategy extends Strategy {
 	
 	@Override
 	protected void doMove() {
-		
-		findPosition(player1);
+		Point pos = board.getPlayerPosition(player1);
 		
 		/*
 		 * Move to the first availabe tile in the following
@@ -27,8 +28,8 @@ public class SimpleStrategy extends Strategy {
 		 */
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
-				if (board.canMove(player1, x + i, y + j)) {
-					board.move(player1, x + i, y + j);
+				if (board.canMove(player1, pos.x + i, pos.y + j)) {
+					board.move(player1, pos.x + i, pos.y + j);
 					return;
 				}
 			}
@@ -37,8 +38,7 @@ public class SimpleStrategy extends Strategy {
 	
 	@Override
 	protected void doDestroy() {
-		// let x, y be the enemy's coordinates
-		findPosition(!player1);
+		Point pos = board.getPlayerPosition(!player1);
 
 		/*
 		 * Destroy the first availabe tile in the following
@@ -49,8 +49,8 @@ public class SimpleStrategy extends Strategy {
 		 */
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
-				if (board.canDestroy(x + i, y + j)) {
-					board.destroy(x + i, y + j);
+				if (board.canDestroy(pos.x + i, pos.y + j)) {
+					board.destroy(pos.x + i, pos.y + j);
 					return;
 				}
 			}
