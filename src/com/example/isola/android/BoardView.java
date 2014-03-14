@@ -22,6 +22,9 @@ import com.example.isola.game.GameEvent;
 import com.example.isola.game.GameOverEvent;
 import com.example.isola.game.MoveEvent;
 
+/**
+ * This class is responsible for drawing the Board to the screen.
+ */
 public class BoardView extends View implements Observer {
 	
 	private Board board;
@@ -44,10 +47,18 @@ public class BoardView extends View implements Observer {
 	private int tilewidth;
 	private String infotext;
 	
+	/**
+	 * Constructor with default parameters. Should not be called by the app.
+	 */
 	public BoardView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 	
+	/**
+	 * Construct the BoardView.
+	 * @param context The application context.
+	 * @param board   The game board to display.
+	 */
 	public BoardView(Context context, Board board) {
 		super(context);
 		this.board = board;
@@ -63,6 +74,12 @@ public class BoardView extends View implements Observer {
 		invalidate();
 	}
 	
+	/**
+	 * Convert coordinates from the view's system into tile coordinates on the board.
+	 * @param x The x-coordinate of the point on the view.
+	 * @param y The y-coordinate of the point on the view.
+	 * @return A Point object containing the coordinates of a tile on the board.
+	 */
 	public Point getTileCoords(int x, int y) {
 		Point toReturn = new Point(x / tilewidth, y / tilewidth);
 		if(toReturn.x >= Board.WIDTH || toReturn.y >= Board.HEIGHT) {

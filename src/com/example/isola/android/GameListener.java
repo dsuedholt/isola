@@ -7,14 +7,27 @@ import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * This class provides the listener that reacts to user input
+ * on the game screen.
+ */
 public class GameListener implements View.OnTouchListener {
 	
 	private Game game;
 	
+	/**
+	 * Constructs the GameListener.
+	 * @param game The Game object that controls the game.
+	 */
 	public GameListener(Game game) {
 		this.game = game;
 	}
 	
+	/**
+	 * When the user touches while it is a human's turn, convert
+	 * the touch coordinates to tile coordinates and send those
+	 * to the game.
+	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent ev) {
 		if (((game.isP1Turn() && game.getPlayer(true) == Player.HUMAN) ||
